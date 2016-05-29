@@ -1,0 +1,86 @@
+﻿<Page
+    x:Class="AllJoynSampleApp.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AllJoynSampleApp"
+    xmlns:allplay="using:AllJoynClientLib.Devices.AllPlay"
+    xmlns:lsf="using:AllJoynClientLib.Devices.LSF"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    NavigationCacheMode="Required"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <GridView ItemsSource="{x:Bind VM.Devices}" Margin="20"
+                  ItemClick="ListView_ItemClick" IsItemClickEnabled="True">
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate >
+                    <ItemsWrapGrid ItemHeight="150" ItemWidth="250" />
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="Margin" Value="10" />
+                </Style>
+            </GridView.ItemContainerStyle>
+            <GridView.ItemTemplateSelector>
+                <local:TypeTemplateSelector>
+                    <local:TypeTemplateSelector.DefaultTemplate>
+                        <DataTemplate>
+                            <Grid Background="LightGray" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                                <TextBlock Text="?" FontSize="100" FontWeight="Bold" Foreground="#55FFFFFF" 
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <StackPanel Margin="10">
+                                    <TextBlock Text="{Binding DeviceName}" FontSize="18" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Manufacturer}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </local:TypeTemplateSelector.DefaultTemplate>
+                    <local:TemplateEntry TypeName="AllJoynClientLib.Devices.AllPlay.PlayerClient">
+                        <DataTemplate>
+                            <Grid Background="CornflowerBlue" >
+                                <TextBlock Text="&#xE767;" FontFamily="Segoe MDL2 Assets" FontSize="100" FontWeight="Bold" Foreground="#55FFFFFF" 
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <StackPanel Margin="10">
+                                    <TextBlock Text="{Binding DeviceName}" FontSize="18" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Manufacturer}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </local:TemplateEntry>
+                    <local:TemplateEntry TypeName="AllJoynClientLib.Devices.LSF.LightClient">
+                        <DataTemplate>
+                            <Grid Background="Orange" >
+                                <TextBlock Text="&#xEA80;" FontFamily="Segoe MDL2 Assets" FontSize="100" FontWeight="Bold" Foreground="#55FFFFFF" 
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <StackPanel Margin="10">
+                                    <TextBlock Text="{Binding DeviceName}" FontSize="18" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Manufacturer}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </local:TemplateEntry>
+                    <local:TemplateEntry TypeName="AllJoynClientLib.Devices.Switch.ZigBeeDsbSwitch">
+                        <DataTemplate>
+                            <Grid Background="#FF4ACD5A" >
+                                <TextBlock Text="&#xE0A2;" FontFamily="Segoe MDL2 Assets" FontSize="100" FontWeight="Bold" Foreground="#55FFFFFF" 
+                                           HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <StackPanel Margin="10">
+                                    <TextBlock Text="{Binding DeviceName}" FontSize="18" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Manufacturer}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </local:TemplateEntry>
+                </local:TypeTemplateSelector>
+            </GridView.ItemTemplateSelector>
+        </GridView>
+        
+    </Grid>
+</Page>

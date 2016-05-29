@@ -1,0 +1,146 @@
+﻿<Page
+    x:Class="AllJoynSampleApp.DeviceViews.AllPlayClientView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AllJoynSampleApp.DeviceViews"
+    xmlns:allplay="using:AllJoynClientLib.Devices.AllPlay"
+    xmlns:conv="using:AllJoynSampleApp.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <conv:TimeSpanConverter x:Key="tsConverter"/>
+        <conv:NullToCollapsedConverter x:Key="nullCollapsedConv" />
+        <conv:NotNullToCollapsedConverter x:Key="nullVisibleConv" />
+    </Page.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Visibility="{x:Bind VM, Mode=OneWay, Converter={StaticResource nullCollapsedConv}}">
+            <Grid VerticalAlignment="Top">
+            <TextBlock Text="{x:Bind VM.Client.DeviceName}" FontWeight="Bold" FontSize="32" Margin="20,0" />
+            <TextBlock Text="{x:Bind VM.Client.Manufacturer}" HorizontalAlignment="Right" Margin="20,0" VerticalAlignment="Center" />
+            </Grid>
+            <ListView x:Name="playlist" SelectionChanged="playlist_SelectionChanged" Margin="20,50,0,0"
+                  ItemsSource="{x:Bind VM.Playlist.Items, Mode=OneWay}"
+                      HorizontalAlignment="Stretch">
+                <ListView.Resources>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    </Style>
+                </ListView.Resources>
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="allplay:Media">
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontWeight="Bold" Text="{x:Bind Title}" />
+                            <TextBlock Text="{x:Bind Album}" Grid.Column="1" />
+                            <TextBlock Text="{x:Bind Artist}" Grid.Column="2" />
+                            <TextBlock Text="{x:Bind Duration, Converter={StaticResource tsConverter}}" Grid.Column="3" />
+
+                        </Grid>
+                        
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Background="CornflowerBlue" RequestedTheme="Dark"
+              Visibility="{x:Bind VM, Mode=OneWay, Converter={StaticResource nullCollapsedConv}}"
+              >
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup>
+                    <VisualState x:Name="wideState">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="600" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Target="TimeSliderArea.(Grid.Row)" Value="1" />
+                            <Setter Target="TimeSliderArea.(Grid.Column)" Value="2" />
+                            <Setter Target="TimeSliderArea.(Grid.ColumnSpan)" Value="1" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="narrowState">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowWidth="0" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Target="thumbnail.Visibility" Value="Collapsed" />
+                            <!--<Setter Target="TimeSliderArea.(Grid.Row)" Value="0" />
+                            <Setter Target="TimeSliderArea.(Grid.Column)" Value="0" />
+                            <Setter Target="TimeSliderArea.(Grid.ColumnSpan)" Value="4" />-->
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Border Width="48" Height="48" BorderBrush="White" BorderThickness="1" Margin="5" Grid.Row="1" x:Name="thumbnail" >
+                <Image Stretch="UniformToFill" >
+                    <Image.Source>
+                        <BitmapImage UriSource="{x:Bind VM.CurrentMedia.ThumbnailUrl, Mode=OneWay}" />
+                    </Image.Source>
+                </Image>
+            </Border>
+            <StackPanel VerticalAlignment="Center" Margin="20" Grid.Column="1" Grid.Row="1" >
+                <TextBlock Text="{x:Bind VM.CurrentMedia.Title, Mode=OneWay}" FontWeight="Bold" />
+                <!--<TextBlock Text="{x:Bind VM.CurrentMedia.Album}" />-->
+                <TextBlock Text="{x:Bind VM.CurrentMedia.Artist, Mode=OneWay}" />
+            </StackPanel>
+            <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Center" x:Name="TimeSliderArea" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="20,0" Text="{x:Bind VM.Position, Mode=OneWay, Converter={StaticResource tsConverter}}" VerticalAlignment="Center" />
+                    <Slider Grid.Column="1" Margin="0,4,0,-4" IsEnabled="False"
+                            Foreground="White" RequestedTheme="Light"
+                            Maximum="{x:Bind VM.CurrentMedia.Duration.TotalSeconds, Mode=OneWay}"
+                            Value="{x:Bind VM.Position.TotalSeconds, Mode=OneWay}" 
+                            />
+                    <TextBlock Margin="20,0" Text="{x:Bind VM.CurrentMedia.Duration, Mode=OneWay, Converter={StaticResource tsConverter}}" VerticalAlignment="Center" Grid.Column="2" />
+                </Grid>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Column="3" Height="48" Grid.Row="1" >
+                <AppBarButton Icon="Previous" Command="{x:Bind VM.PreviousCommand, Mode=OneWay}" />
+                <AppBarButton Icon="Play" Command="{x:Bind VM.ResumeCommand, Mode=OneWay}"/>
+                <AppBarButton Icon="Stop" Command="{x:Bind VM.StopCommand, Mode=OneWay}" />
+                <!--<AppBarButton Icon="Pause" Click="PauseButton_Click" />-->
+                <AppBarButton Icon="Next" Command="{x:Bind VM.NextCommand, Mode=OneWay}" />
+            </StackPanel>
+            <TextBlock Text="{x:Bind VM.MediaState, Mode=OneWay}" Grid.Row="1"
+                       Grid.Column="4" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+
+        </Grid>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2" Grid.RowSpan="2"
+              Visibility="{x:Bind VM, Mode=OneWay, Converter={StaticResource nullVisibleConv}}">
+            <StackPanel>
+                <ProgressRing IsActive="True" />
+                <TextBlock Text="Searching for a music player..." FontSize="24" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>
