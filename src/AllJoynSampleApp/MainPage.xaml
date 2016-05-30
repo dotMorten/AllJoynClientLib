@@ -16,6 +16,11 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		
         <GridView ItemsSource="{x:Bind VM.Devices}" Margin="20"
                   ItemClick="ListView_ItemClick" IsItemClickEnabled="True">
             <GridView.Resources>
@@ -97,14 +102,19 @@
             </GridView.ItemTemplateSelector>
             
         </GridView>
-        
 
-        <ToggleSwitch HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                      Header="Show Unknown Device Types" Margin="20,0"
+
+		<Border Background="CornflowerBlue" Grid.Row="1" RequestedTheme="Dark">
+		<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" >
+			<TextBlock Text="Show Unknown Device Types" VerticalAlignment="Center" />
+			<ToggleSwitch HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                      Margin="5,0,-60,0"
                       IsOn="{x:Bind VM.TrackUnknownDevices, Mode=TwoWay}"
                       />
+		</StackPanel>
+		</Border>
 
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind VM.DevicesAvailable, Mode=OneWay, Converter={StaticResource boolCollapsedConv}}">
+		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind VM.DevicesAvailable, Mode=OneWay, Converter={StaticResource boolCollapsedConv}}">
             <TextBlock Text="searching for devices..." FontSize="18" />
             <ProgressRing IsActive="True" />
         </StackPanel>
