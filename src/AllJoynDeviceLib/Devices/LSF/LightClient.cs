@@ -94,6 +94,11 @@ namespace AllJoynClientLib.Devices.LSF
             return lampState.SetPropertyAsync("Hue", (uint)(Hue / 360d * MaxValue));
         }
 
+        public Task SetColorAsync(Windows.UI.Color color)
+        {
+            return SetColorAsync(color.R, color.G, color.B, TimeSpan.Zero);
+        }
+
         public Task SetColorAsync(byte red, byte green, byte blue)
         {
             return SetColorAsync(red, green, blue, TimeSpan.Zero);

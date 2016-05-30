@@ -43,7 +43,7 @@ namespace AllJoynClientLib.Devices.LSF
             return _isDimmable;
         }
 
-        public Task<bool> GetIsColorAsync()
+        public Task<bool> GetIsColorSupportedAsync()
         {
             if (_isColor == null)
             {

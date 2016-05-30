@@ -18,7 +18,7 @@ namespace AllJoynSampleApp.ViewModels
             {
                 _brightness = await Client.GetBrightnessAsync();
             }
-            SupportsColor = await Client.GetIsColorAsync();
+            SupportsColor = await Client.GetIsColorSupportedAsync();
             if (SupportsColor)
             {
                 _Hue = await Client.GetHueAsync();
