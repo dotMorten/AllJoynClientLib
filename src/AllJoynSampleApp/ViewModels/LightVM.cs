@@ -31,7 +31,7 @@ namespace AllJoynSampleApp.ViewModels
                 MinTemperature = await Client.GetMinTemperatureAsync();
                 MaxTemperature = await Client.GetMaxTemperatureAsync();
             }
-            OnPropertyChanged(nameof(IsOn), nameof(Brightness), nameof(Hue), nameof(Saturation), nameof(SupportsColor),
+            OnPropertyChanged(nameof(IsOn), nameof(Brightness), nameof(SupportsDimming), nameof(Hue), nameof(Saturation), nameof(SupportsColor),
                  nameof(Temperature), nameof(MinTemperature), nameof(MaxTemperature), nameof(SupportsTemperature));
         }
         public bool SupportsDimming { get; private set; } = false;

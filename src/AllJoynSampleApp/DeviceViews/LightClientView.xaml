@@ -3,10 +3,14 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AllJoynSampleApp.DeviceViews"
+    xmlns:conv="using:AllJoynSampleApp.Converters"
     xmlns:ctrls="using:AllJoynSampleApp.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
+    <Page.Resources>
+        <conv:BoolToVisibilityConverter x:Key="boolConverter" />
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -23,9 +27,9 @@
 
         <StackPanel Margin="20,50,20,0">
             <ToggleSwitch Header="Light Switch" IsOn="{x:Bind VM.IsOn, Mode=TwoWay}" />
-            <Slider Maximum="100" Value="{x:Bind VM.Brightness, Mode=TwoWay}" Header="Brightness" IsEnabled="{x:Bind VM.SupportsDimming, Mode=OneWay}" />
-            <Slider Maximum="{x:Bind VM.MaxTemperature, Mode=OneWay}" Minimum="{x:Bind VM.MinTemperature, Mode=OneWay}" Value="{x:Bind VM.Temperature, Mode=TwoWay}" Header="Temperature" IsEnabled="{x:Bind VM.SupportsTemperature, Mode=OneWay}"  />
-            <ctrls:ColorPicker Width="300" Height="300" HorizontalAlignment="Left" IsEnabled="{x:Bind VM.SupportsColor, Mode=OneWay}" 
+            <Slider Maximum="100" Value="{x:Bind VM.Brightness, Mode=TwoWay}" Header="Brightness" Visibility="{x:Bind VM.SupportsDimming, Mode=OneWay, Converter={StaticResource boolConverter}}" />
+            <Slider Maximum="{x:Bind VM.MaxTemperature, Mode=OneWay}" Minimum="{x:Bind VM.MinTemperature, Mode=OneWay}" Value="{x:Bind VM.Temperature, Mode=TwoWay}" Header="Temperature" Visibility="{x:Bind VM.SupportsTemperature, Mode=OneWay, Converter={StaticResource boolConverter}}"  />
+            <ctrls:ColorPicker Width="300" Height="300" HorizontalAlignment="Left" Visibility="{x:Bind VM.SupportsColor, Mode=OneWay, Converter={StaticResource boolConverter}}" 
                                Hue="{x:Bind VM.Hue, Mode=OneWay}" Saturation="{x:Bind VM.Saturation, Mode=OneWay}"
                                ColorPicked="ColorPicker_ColorPicked"
                                />
