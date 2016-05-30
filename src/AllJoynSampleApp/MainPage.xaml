@@ -5,10 +5,14 @@
     xmlns:local="using:AllJoynSampleApp"
     xmlns:allplay="using:AllJoynClientLib.Devices.AllPlay"
     xmlns:lsf="using:AllJoynClientLib.Devices.LSF"
+    xmlns:converter="using:AllJoynSampleApp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     NavigationCacheMode="Required"
     mc:Ignorable="d">
+    <Page.Resources>
+        <converter:BoolToCollapsedConverter x:Key="boolCollapsedConv" />
+    </Page.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
@@ -36,7 +40,7 @@
                                 <TextBlock Text="?" FontSize="100" FontWeight="Bold" Foreground="#55FFFFFF" 
                                            HorizontalAlignment="Center" VerticalAlignment="Center" />
                                 <StackPanel Margin="10">
-                                    <TextBlock Text="{Binding DeviceName}" FontSize="18" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding DeviceName}" TextWrapping="Wrap" FontSize="18" FontWeight="Bold" />
                                     <TextBlock Text="{Binding Manufacturer}" />
                                 </StackPanel>
                             </Grid>
@@ -80,7 +84,18 @@
                     </local:TemplateEntry>
                 </local:TypeTemplateSelector>
             </GridView.ItemTemplateSelector>
+            
         </GridView>
         
+
+        <ToggleSwitch HorizontalAlignment="Right" VerticalAlignment="Top"
+                      Header="Show Unknown Device Types"
+                      IsOn="{x:Bind VM.TrackUnknownDevices, Mode=TwoWay}"
+                      />
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind VM.DevicesAvailable, Mode=OneWay, Converter={StaticResource boolCollapsedConv}}">
+            <TextBlock Text="searching for devices..." FontSize="18" />
+            <ProgressRing IsActive="True" />
+        </StackPanel>
     </Grid>
 </Page>

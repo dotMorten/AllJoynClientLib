@@ -12,15 +12,59 @@ namespace AllJoynSampleApp.ViewModels
     {
         private AllJoynClientLib.DeviceManager manager;
         private ObservableCollection<DeviceClient> clients;
+
         public MainViewModel()
         {
             clients = new ObservableCollection<DeviceClient>();
+            clients.CollectionChanged += Clients_CollectionChanged;
+            Start();
+        }
+
+
+        private void Start()
+        {
             manager = new AllJoynClientLib.DeviceManager();
             manager.DeviceJoined += Manager_DeviceJoined;
             manager.DeviceDropped += Manager_DeviceDropped;
-            manager.TrackUnknownDevices = false;
+            manager.TrackUnknownDevices = _trackUnknownDevices;
             manager.Start();
         }
+
+        public void Restart()
+        {
+            manager.DeviceJoined -= Manager_DeviceJoined;
+            manager.DeviceDropped -= Manager_DeviceDropped;
+            manager.Stop();
+            manager = null;
+            clients.Clear();
+            Start();
+        }
+
+        private bool _trackUnknownDevices;
+
+        public bool TrackUnknownDevices
+        {
+            get { return _trackUnknownDevices; }
+            set
+            {
+                if (_trackUnknownDevices != value)
+                {
+                    _trackUnknownDevices = value; Restart();
+                }
+            }
+        }
+
+        private void Clients_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            var any = clients.Any();
+            if (any != DevicesAvailable)
+            {
+                DevicesAvailable = any;
+                OnPropertyChanged(nameof(DevicesAvailable));
+            }
+        }
+
+        public bool DevicesAvailable { get; private set; }
 
         private void Manager_DeviceDropped(object sender, AllJoynClientLib.Devices.DeviceClient e)
         {

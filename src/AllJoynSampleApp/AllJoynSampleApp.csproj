@@ -98,6 +98,7 @@
     <Compile Include="Controls\ColorPicker.xaml.cs">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\BoolToCollapsedConverter.cs" />
     <Compile Include="Converters\NullToCollapsedConverter.cs" />
     <Compile Include="Converters\TimeSpanConverter.cs" />
     <Compile Include="DeviceViews\AllPlayClientView.xaml.cs">
