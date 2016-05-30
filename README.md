@@ -48,7 +48,7 @@ See the test app for more examples
 
 
 ### Sample App Screenshots
-![image](https://cloud.githubusercontent.com/assets/1378165/15642669/aa6ccdc4-25fd-11e6-9d1e-79168715a183.png)
+![image](https://cloud.githubusercontent.com/assets/1378165/15654946/54784af6-264d-11e6-82ab-b2f8fe3f1436.png)
 ![image](https://cloud.githubusercontent.com/assets/1378165/15642681/d0b0fc4e-25fd-11e6-94bf-da701a03f32d.png)
 ![image](https://cloud.githubusercontent.com/assets/1378165/15642715/fbc284c0-25fd-11e6-9bb4-b277a406e067.png)
 
