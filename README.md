@@ -21,14 +21,14 @@ Supported AllJoyn devices:
     private async void Manager_DeviceJoined(object sender, DeviceClient device)
     {
       if(device is AllJoynClientLib.Devices.LSF.LightClient)
-      {
+      { //We found a light
         var client = (AllJoynClientLib.Devices.LSF.LightClient)device;
         await client.SetOnOffAsync(true); //turn on light
         if(await GetIsColorSupportedAsync()) //check the capability of light
           await client.SetColorAsync(Colors.Red); //Set the color of the light
       }
       else if (device is AllJoynClientLib.Devices.AllPlay.PlayerClient)
-      {
+      { //We found a media player
         var client = (AllJoynClientLib.Devices.AllPlay.PlayerClient)device;
         await client.MediaPlayer.NextAsync(); //Play next track
         var list = await client.MediaPlayer.GetPlaylistAsync(); //Get playlist
