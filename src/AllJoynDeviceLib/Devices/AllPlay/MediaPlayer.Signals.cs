@@ -37,6 +37,18 @@ namespace AllJoynClientLib.Devices.AllPlay
             _onPlaybackErrorChanged.SignalRaised += _onPlaybackErrorChanged_SignalRaised;
         }
 
+        internal void OnDeviceLost()
+        {
+            _playStateChangedSignal.SignalRaised -= StateChangedSignal_SignalRaised;
+            _playlistChanged.SignalRaised -= _playlistChanged_SignalRaised;
+            _shuffleModeChanged.SignalRaised -= _shuffleModeChanged_SignalRaised;
+            _enabledControlsChanged.SignalRaised -= _enabledControlsChanged_SignalRaised;
+            _loopModeChanged.SignalRaised -= _loopModeChanged_SignalRaised;
+            _endOfPlaybackChanged.SignalRaised -= _endOfPlaybackChanged_SignalRaised;
+            _interruptibleChanged.SignalRaised -= _interruptibleChanged_SignalRaised;
+            _onPlaybackErrorChanged.SignalRaised -= _onPlaybackErrorChanged_SignalRaised;
+        }
+
         private void _endOfPlaybackChanged_SignalRaised(ISignal sender, IList<object> args)
         {
             EndOfPlayback?.Invoke(this, EventArgs.Empty);

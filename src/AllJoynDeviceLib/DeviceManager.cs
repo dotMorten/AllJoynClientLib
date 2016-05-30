@@ -18,6 +18,7 @@ namespace AllJoynClientLib
             RegisterClient("net.allplay.MediaPlayer", (svc) => new Devices.AllPlay.PlayerClient(svc));  //Could probably also be "org.allseen.media.control.mediaPlayer"
             RegisterClient("org.allseen.LSF.LampState", (svc) => new Devices.LSF.LightClient(svc));
             RegisterClient("com.microsoft.ZWaveBridge.SwitchBinary.Switch", (svc) => new Devices.Switch.ZigBeeDsbSwitch(svc));
+            RegisterClient("com.microsoft.ZWaveBridge.Switch", (svc) => new Devices.Switch.ZigBeeDsbSwitch(svc));
         }
 
         /// <summary>
@@ -49,12 +50,17 @@ namespace AllJoynClientLib
         {
             if (provider == null)
                 return;
-            provider.Shutdown();
             provider.ServiceJoined -= Provider_ServiceJoined;
             provider.ServiceDropped -= Provider_ServiceDropped;
-            provider = null;
             lock (devicesLock)
+            {
+                foreach (var device in devices)
+                    foreach (var client in device.Value)
+                        client.DeviceLost();
                 devices.Clear();
+        }
+            provider.Shutdown();
+            provider = null;
         }
 
         private void Provider_ServiceJoined(DeviceProviders.IProvider sender, DeviceProviders.ServiceJoinedEventArgs args)
@@ -98,7 +104,10 @@ namespace AllJoynClientLib
             if (clients != null)
             {
                 foreach(var client in clients)
+                {
+                    client.DeviceLost();
                     DeviceDropped?.Invoke(this, client);
+                }
             }
         }
 

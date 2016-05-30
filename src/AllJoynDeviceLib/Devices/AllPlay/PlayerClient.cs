@@ -27,7 +27,11 @@ namespace AllJoynClientLib.Devices.AllPlay
             if (zoneManager != null) ZoneManager = new ZoneManager(zoneManager);
             if (mcu != null) Mcu = new Mcu(mcu);
         }
-
+        protected override void OnDeviceLost()
+        {
+            base.OnDeviceLost();
+            MediaPlayer.OnDeviceLost();
+        }
         public MediaPlayer MediaPlayer { get; }
         public Volume Volume { get; }
         public ZoneManager ZoneManager { get; }

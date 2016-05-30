@@ -13,6 +13,14 @@ namespace AllJoynClientLib.Devices
             Service = service;
         }
 
+        internal void DeviceLost()
+        {
+            OnDeviceLost();
+        }
+        protected virtual void OnDeviceLost()
+        {
+        }
+
         public DeviceProviders.IService Service { get; }
 
         public string Name

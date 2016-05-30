@@ -22,6 +22,13 @@ namespace AllJoynClientLib.Devices.LSF
             }
         }
 
+        protected override void OnDeviceLost()
+        {
+            if(_lampStateChangedSignal != null)
+                _lampStateChangedSignal.SignalRaised -= LampStateChangedSignal_SignalRaised;
+            base.OnDeviceLost();
+        }
+
         public override Task<bool> GetOnOffAsync()
         {
             return lampState.GetPropertyAsync<bool>("OnOff");
