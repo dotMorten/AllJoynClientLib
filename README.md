@@ -3,7 +3,7 @@ An Universal Windows apps (UWP) Device Client Library for various common AllJoyn
 
 Supported AllJoyn devices:
 
-- Lighting Service Framework (smart lights, like LIFX or Philips Hue using [My Hue DSB Bridge](https://github.com/dotMorten/AllJoynPhilipsHueDSB)
+- Lighting Service Framework (smart lights, like LIFX or Philips Hue using [My Hue DSB Bridge](https://github.com/dotMorten/AllJoynPhilipsHueDSB))
 - [AllPlay](https://www.qualcomm.com/products/allplay/platform) media players like [Gramofon](https://gramofon.com/) and [Panasonic All](http://www.panasonic.com/uk/consumer/home-entertainment/wireless-speaker-systems.html)
 - Z-Wave switches using [Microsoft's Z-Wave Device Service Bridge](https://developer.microsoft.com/en-us/windows/iot/win10/samples/zwavetutorial)
 
@@ -23,7 +23,9 @@ Supported AllJoyn devices:
       if(device is AllJoynClientLib.Devices.LSF.LightClient)
       {
         var client = (AllJoynClientLib.Devices.LSF.LightClient)device;
-        await client.SetOnOffAsync(true);
+        await client.SetOnOffAsync(true); //turn on light
+        if(await GetIsColorSupportedAsync()) //check the capability of light
+          await client.SetColorAsync(Colors.Red); //Set the color of the light
       }
       else if (device is AllJoynClientLib.Devices.AllPlay.PlayerClient)
       {
