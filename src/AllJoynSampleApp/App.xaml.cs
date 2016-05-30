@@ -7,7 +7,9 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -90,6 +92,12 @@ namespace AllJoynSampleApp
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+            var view = ApplicationView.GetForCurrentView();
+            view.TitleBar.BackgroundColor = Colors.CornflowerBlue;
+            view.TitleBar.ForegroundColor = Colors.White;
+            view.TitleBar.ButtonBackgroundColor = Colors.CornflowerBlue;
+            view.TitleBar.ButtonForegroundColor = Colors.White;
         }
 
         private void RootFrame_Navigated(object sender, NavigationEventArgs e)
