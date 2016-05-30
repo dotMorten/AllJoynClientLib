@@ -47,6 +47,7 @@
                                 <StackPanel Margin="10">
                                     <TextBlock Text="{Binding DeviceName}" FontSize="18" FontWeight="Bold" />
                                     <TextBlock Text="{Binding Manufacturer}" />
+									<TextBlock Text="{Binding ModelNumber}" />
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>
@@ -59,6 +60,7 @@
                                 <StackPanel Margin="10">
                                     <TextBlock Text="{Binding DeviceName}" FontSize="18" FontWeight="Bold" />
                                     <TextBlock Text="{Binding Manufacturer}" />
+									<TextBlock Text="{Binding ModelNumber}" />
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>
@@ -72,6 +74,7 @@
                                 <StackPanel Margin="10">
                                     <TextBlock Text="{Binding DeviceName}" FontSize="18" FontWeight="Bold" />
                                     <TextBlock Text="{Binding Manufacturer}" />
+									<TextBlock Text="{Binding ModelNumber}" />
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>
@@ -85,6 +88,7 @@
                                 <StackPanel Margin="10">
                                     <TextBlock Text="{Binding DeviceName}" FontSize="18" FontWeight="Bold" />
                                     <TextBlock Text="{Binding Manufacturer}" />
+									<TextBlock Text="{Binding ModelNumber}" />
                                 </StackPanel>
                             </Grid>
                         </DataTemplate>
@@ -95,8 +99,8 @@
         </GridView>
         
 
-        <ToggleSwitch HorizontalAlignment="Right" VerticalAlignment="Top"
-                      Header="Show Unknown Device Types"
+        <ToggleSwitch HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                      Header="Show Unknown Device Types" Margin="20,0"
                       IsOn="{x:Bind VM.TrackUnknownDevices, Mode=TwoWay}"
                       />
 

@@ -39,6 +39,14 @@ namespace AllJoynClientLib.Devices
             }
         }
 
+        public string ModelNumber
+        {
+            get
+            {
+                return Service?.AboutData?.ModelNumber;
+            }
+        }
+
         public string DeviceId
         {
             get
