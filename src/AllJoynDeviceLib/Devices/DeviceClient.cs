@@ -20,7 +20,7 @@ namespace AllJoynClientLib.Devices
             {
                 foreach (var item in items)
                 {
-                    var i = item.GetInterface("org.allseen.LSF.LampState");
+                    var i = item.GetInterface(name);
                     if (i != null) return i;
                 }
             }
