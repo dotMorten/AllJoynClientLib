@@ -102,10 +102,10 @@
                         <DataTemplate>
                             <Grid Background="#FFE5E280" Padding="10" >
                                 <Grid Width="76" Height="76" >
-                                    <Ellipse Width="30" Height="30" Fill="#55FFFFFF"  />
-                                    <Ellipse Width="7" Height="7" Fill="#55FFFFFF" Margin="0,0,55,0"  />
-                                    <Ellipse Width="7" Height="7" Fill="#55FFFFFF" Margin="0,0,0,55"  />
-                                    <Ellipse Width="7" Height="7" Fill="#55FFFFFF" Margin="0,0,40,40"  />
+                                    <Ellipse Width="20" Height="20" Fill="#55FFFFFF"  />
+                                    <Ellipse Width="5" Height="5" Fill="#55FFFFFF" Margin="0,0,35,0"  />
+                                    <Ellipse Width="5" Height="5" Fill="#55FFFFFF" Margin="0,0,0,35"  />
+                                    <Ellipse Width="5" Height="5" Fill="#55FFFFFF" Margin="0,0,26,26"  />
                                     <Border BorderThickness="3" BorderBrush="#55FFFFFF" CornerRadius="15" />
                                 </Grid>
                                 <StackPanel>
@@ -140,5 +140,6 @@
             <TextBlock Text="searching for devices..." FontSize="18" />
             <ProgressRing IsActive="True" />
         </StackPanel>
+
     </Grid>
 </Page>
