@@ -104,15 +104,18 @@
         </GridView>
 
 
-		<Border Background="CornflowerBlue" Grid.Row="1" RequestedTheme="Dark">
-		<StackPanel HorizontalAlignment="Right" Orientation="Horizontal" >
+		<Grid Background="CornflowerBlue" Grid.Row="1" RequestedTheme="Dark">
+		    <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center" Orientation="Horizontal" >
 			<TextBlock Text="Show Unknown Device Types" VerticalAlignment="Center" />
 			<ToggleSwitch HorizontalAlignment="Right" VerticalAlignment="Bottom"
                       Margin="5,0,-60,0"
                       IsOn="{x:Bind VM.TrackUnknownDevices, Mode=TwoWay}"
                       />
 		</StackPanel>
-		</Border>
+            <AppBarButton Click="AboutButton_Click" 
+                          Margin="0,-4,0,-16"
+                          Icon="Help" HorizontalAlignment="Left" />
+        </Grid>
 
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{x:Bind VM.DevicesAvailable, Mode=OneWay, Converter={StaticResource boolCollapsedConv}}">
             <TextBlock Text="searching for devices..." FontSize="18" />

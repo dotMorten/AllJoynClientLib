@@ -64,5 +64,10 @@ namespace AllJoynSampleApp
                 Frame.Navigate(typeof(DeviceViews.SwitchClientView), item);
             }
         }
+
+        private void AboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(AboutPage));
+        }
     }
 }
