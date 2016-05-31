@@ -98,6 +98,25 @@
                             </Grid>
                         </DataTemplate>
                     </local:TemplateEntry>
+                    <local:TemplateEntry TypeName="AllJoynSampleApp.DevicePlugins.PhilipsHueDSB">
+                        <DataTemplate>
+                            <Grid Background="#FFE5E280" Padding="10" >
+                                <Grid Width="76" Height="76" >
+                                    <Ellipse Width="30" Height="30" Fill="#55FFFFFF"  />
+                                    <Ellipse Width="7" Height="7" Fill="#55FFFFFF" Margin="0,0,55,0"  />
+                                    <Ellipse Width="7" Height="7" Fill="#55FFFFFF" Margin="0,0,0,55"  />
+                                    <Ellipse Width="7" Height="7" Fill="#55FFFFFF" Margin="0,0,40,40"  />
+                                    <Border BorderThickness="3" BorderBrush="#55FFFFFF" CornerRadius="15" />
+                                </Grid>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding DeviceName}" FontSize="18" FontWeight="Bold" />
+                                    <TextBlock Text="{Binding Manufacturer}" />
+                                </StackPanel>
+                                <TextBlock Text="{Binding ModelNumber}" VerticalAlignment="Bottom" />
+                            </Grid>
+
+                        </DataTemplate>
+                    </local:TemplateEntry>
                 </local:TypeTemplateSelector>
             </GridView.ItemTemplateSelector>
             

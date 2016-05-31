@@ -63,6 +63,10 @@ namespace AllJoynSampleApp
             {
                 Frame.Navigate(typeof(DeviceViews.SwitchClientView), item);
             }
+            else if (item is DevicePlugins.PhilipsHueDSB)
+            {
+                Frame.Navigate(typeof(DeviceViews.PhilipsHueBridgeView), item);
+            }
         }
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)

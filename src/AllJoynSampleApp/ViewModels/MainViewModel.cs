@@ -15,6 +15,7 @@ namespace AllJoynSampleApp.ViewModels
 
         public MainViewModel()
         {
+            DevicePlugins.PhilipsHueDSB.Register(); //Register custom device plugin
             clients = new ObservableCollection<DeviceClient>();
             clients.CollectionChanged += Clients_CollectionChanged;
             Start();

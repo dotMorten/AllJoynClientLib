@@ -105,8 +105,12 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\NullToCollapsedConverter.cs" />
     <Compile Include="Converters\TimeSpanConverter.cs" />
+    <Compile Include="DevicePlugins\PhilipsHueDSB.cs" />
     <Compile Include="DeviceViews\AllPlayClientView.xaml.cs">
       <DependentUpon>AllPlayClientView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DeviceViews\PhilipsHueBridgeView.xaml.cs">
+      <DependentUpon>PhilipsHueBridgeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="DeviceViews\SwitchClientView.xaml.cs">
       <DependentUpon>SwitchClientView.xaml</DependentUpon>
@@ -121,6 +125,7 @@
     </Compile>
     <Compile Include="ViewModels\GenericCommand.cs" />
     <Compile Include="ViewModels\DeviceVMBase .cs" />
+    <Compile Include="ViewModels\PhilipsHueBridgeVM.cs" />
     <Compile Include="ViewModels\SwitchVM.cs" />
     <Compile Include="ViewModels\LightVM.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -159,6 +164,10 @@
     <Page Include="DeviceViews\AllPlayClientView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DeviceViews\PhilipsHueBridgeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="DeviceViews\SwitchClientView.xaml">
       <Generator>MSBuild:Compile</Generator>
