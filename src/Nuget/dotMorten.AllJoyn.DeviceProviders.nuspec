@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+  <metadata minClientVersion="2.8.6">
+    <id>dotMorten.AllJoyn.DeviceProviders</id>
+    <version>1.1.0</version>
+    <title>AllJoyn Device Providers</title>
+    <authors>Morten Nielsen</authors>
+    <owners>Morten Nielsen</owners>
+    <projectUrl>https://github.com/ms-iot/samples/tree/develop/AllJoyn/Platform/DeviceProviders</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>AllJoyn Device Provider for device discovery and interaction without using Introspection XML.
+For the Universal Windows Platform (Windows 10).</description>
+    <copyright>Copyright (c) Microsoft Corporation. All rights reserved.</copyright>
+    <tags>AllJoyn C# C++ Windows UWP UAP Universal Platform</tags>
+  </metadata>
+</package>
