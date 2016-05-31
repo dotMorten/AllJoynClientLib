@@ -10,6 +10,13 @@ Supported AllJoyn devices:
 
 
 ### Usage:
+
+Install nuget package:
+```
+PM> Install-Package dotMorten.AllJoyn.AllJoynClientLib
+```
+
+Sample code:
 ```csharp
   
     var manager = new AllJoynClientLib.DeviceManager();
