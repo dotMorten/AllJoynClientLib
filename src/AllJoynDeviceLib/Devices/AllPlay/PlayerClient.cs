@@ -1,11 +1,12 @@
-﻿using DeviceProviders;
+﻿using AllJoynClientLib.Devices.AllPlay;
+using DeviceProviders;
 
-namespace AllJoynClientLib.Devices.AllPlay
+namespace AllJoynClientLib.Devices
 {
     //Link to spec: https://wiki.allseenalliance.org/_media/baseservices/alljoyn_media_control_service_0.3_hld.pdf
-    public partial class PlayerClient :  DeviceClient
+    public partial class AllPlayClient :  DeviceClient
     {        
-        internal PlayerClient(IService service) : base(service)
+        internal AllPlayClient(IService service) : base(service)
         {
             IInterface mediaPlayer = null;
             IInterface mcu = null;
@@ -40,7 +41,5 @@ namespace AllJoynClientLib.Devices.AllPlay
         public Volume Volume { get; }
         public ZoneManager ZoneManager { get; }
         public Mcu Mcu { get; }
-        public string DeviceName { get { return Service.AboutData.DeviceName; } }
-        public string Manufacturer { get { return Service.AboutData.Manufacturer; } }        
     }
 }

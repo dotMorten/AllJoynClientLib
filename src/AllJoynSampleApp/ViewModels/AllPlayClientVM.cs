@@ -5,19 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using AllJoynClientLib.Devices.AllPlay;
+using AllJoynClientLib.Devices;
 
 namespace AllJoynSampleApp.ViewModels
 {
     public class MediaPlayerVM : ViewModelBase
     {
-        private readonly PlayerClient _client;
+        private readonly AllPlayClient _client;
         private PlayState lastKnownState;
         private DateTime timeOfLastKnownState;
         private EnabledControls _enabledControls;
         private readonly Windows.UI.Xaml.DispatcherTimer positionTimer;
         private PlayerInfo playerInfo;
 
-        public MediaPlayerVM(PlayerClient client)
+        public MediaPlayerVM(AllPlayClient client)
         {
             _client = client;
             positionTimer = new Windows.UI.Xaml.DispatcherTimer() { Interval = TimeSpan.FromSeconds(1) };
@@ -86,7 +87,7 @@ namespace AllJoynSampleApp.ViewModels
             volumeDownCommand = new GenericCommand((o) => { _client.Volume.AdjustVolumeAsync(-2); }, (o) => { return IsVolumeEnabled; });
         }
 
-        public PlayerClient Client { get { return _client; } }
+        public AllPlayClient Client { get { return _client; } }
 
         private void PositionTimer_Tick(object sender, object e)
         {

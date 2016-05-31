@@ -1,4 +1,4 @@
-﻿using AllJoynClientLib.Devices.Switch;
+﻿using AllJoynClientLib.Devices;
 using System.Threading.Tasks;
 
 namespace AllJoynSampleApp.ViewModels

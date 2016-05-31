@@ -20,16 +20,16 @@ Supported AllJoyn devices:
 
     private async void Manager_DeviceJoined(object sender, DeviceClient device)
     {
-      if(device is AllJoynClientLib.Devices.LSF.LightClient)
+      if(device isLightClient)
       { //We found a light
-        var client = (AllJoynClientLib.Devices.LSF.LightClient)device;
+        var client = (LightClient)device;
         await client.SetOnOffAsync(true); //turn on light
         if(await GetIsColorSupportedAsync()) //check the capability of light
           await client.SetColorAsync(Colors.Red); //Set the color of the light
       }
-      else if (device is AllJoynClientLib.Devices.AllPlay.PlayerClient)
+      else if (device is AllPlayClient)
       { //We found a media player
-        var client = (AllJoynClientLib.Devices.AllPlay.PlayerClient)device;
+        var client = (AllPlayClient)device;
         await client.MediaPlayer.NextAsync(); //Play next track
         var list = await client.MediaPlayer.GetPlaylistAsync(); //Get playlist
         await client.Volume.SetVolumeAsync(50); //Set volume
@@ -37,7 +37,7 @@ Supported AllJoyn devices:
       }
     }
 
-    private void OnPlayStateChanged(object sender, AllJoynClientLib.Devices.AllPlay.PlayState e)
+    private void OnPlayStateChanged(object sender, AllPlay.PlayState e)
     {
         //Media play state changed (start/stop/buffering/transitioning etc)
         string currentSong = e.CurrentMedia.Title;

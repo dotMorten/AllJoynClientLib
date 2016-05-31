@@ -1,9 +1,9 @@
-﻿using AllJoynClientLib.Devices.LSF;
+﻿using AllJoynClientLib.Devices;
 using System.Threading.Tasks;
 
 namespace AllJoynSampleApp.ViewModels
 {
-    public abstract class DeviceVMBase<T> : ViewModelBase where T: AllJoynClientLib.Devices.DeviceClient
+    public abstract class DeviceVMBase<T> : ViewModelBase where T: DeviceClient
     {
         private T _client;
 

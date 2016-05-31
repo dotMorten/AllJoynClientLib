@@ -15,10 +15,10 @@ namespace AllJoynClientLib
         private static Dictionary<string, Func<DeviceProviders.IService, DeviceClient>> devicesCreators = new Dictionary<string, Func<DeviceProviders.IService, DeviceClient>>();
         static DeviceManager()
         {
-            RegisterClient("net.allplay.MediaPlayer", (svc) => new Devices.AllPlay.PlayerClient(svc));  //Could probably also be "org.allseen.media.control.mediaPlayer"
-            RegisterClient("org.allseen.LSF.LampState", (svc) => new Devices.LSF.LightClient(svc));
-            RegisterClient("com.microsoft.ZWaveBridge.SwitchBinary.Switch", (svc) => new Devices.Switch.ZigBeeDsbSwitch(svc));
-            RegisterClient("com.microsoft.ZWaveBridge.Switch", (svc) => new Devices.Switch.ZigBeeDsbSwitch(svc));
+            RegisterClient("net.allplay.MediaPlayer", (svc) => new Devices.AllPlayClient(svc));  //Could probably also be "org.allseen.media.control.mediaPlayer"
+            RegisterClient("org.allseen.LSF.LampState", (svc) => new Devices.LightClient(svc));
+            RegisterClient("com.microsoft.ZWaveBridge.SwitchBinary.Switch", (svc) => new Devices.ZigBeeDsbSwitch(svc));
+            RegisterClient("com.microsoft.ZWaveBridge.Switch", (svc) => new Devices.ZigBeeDsbSwitch(svc));
         }
 
         /// <summary>

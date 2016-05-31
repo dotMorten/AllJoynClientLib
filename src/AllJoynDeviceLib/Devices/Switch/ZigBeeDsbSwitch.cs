@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DeviceProviders;
 
-namespace AllJoynClientLib.Devices.Switch
+namespace AllJoynClientLib.Devices
 {
     internal class ZigBeeDsbSwitch : SwitchClient
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AllJoynClientLib.Devices.LSF
+namespace AllJoynClientLib.Devices
 {
     public partial class LightClient 
     {

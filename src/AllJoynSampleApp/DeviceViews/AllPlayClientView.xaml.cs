@@ -29,7 +29,7 @@ namespace AllJoynSampleApp.DeviceViews
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            VM = new ViewModels.MediaPlayerVM(e.Parameter as AllJoynClientLib.Devices.AllPlay.PlayerClient);
+            VM = new ViewModels.MediaPlayerVM(e.Parameter as AllJoynClientLib.Devices.AllPlayClient);
         }
         private void playlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

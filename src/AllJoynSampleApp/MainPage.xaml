@@ -57,7 +57,7 @@
                             </Grid>
                         </DataTemplate>
                     </local:TypeTemplateSelector.DefaultTemplate>
-                    <local:TemplateEntry TypeName="AllJoynClientLib.Devices.AllPlay.PlayerClient">
+                    <local:TemplateEntry TypeName="AllJoynClientLib.Devices.AllPlayClient">
                         <DataTemplate>
                             <Grid Background="CornflowerBlue" Padding="10">
                                 <TextBlock Text="&#xE767;" FontFamily="Segoe MDL2 Assets" FontSize="76" FontWeight="Bold" Foreground="#55FFFFFF" 
@@ -70,7 +70,7 @@
                             </Grid>
                         </DataTemplate>
                     </local:TemplateEntry>
-                    <local:TemplateEntry TypeName="AllJoynClientLib.Devices.LSF.LightClient">
+                    <local:TemplateEntry TypeName="AllJoynClientLib.Devices.LightClient">
                         <DataTemplate>
                             <Grid Background="Orange" Padding="10">
                                 <Grid Width="76" Height="76">
@@ -84,7 +84,7 @@
                             </Grid>
                         </DataTemplate>
                     </local:TemplateEntry>
-                    <local:TemplateEntry TypeName="AllJoynClientLib.Devices.Switch.ZigBeeDsbSwitch">
+                    <local:TemplateEntry TypeName="AllJoynClientLib.Devices.ZigBeeDsbSwitch">
                         <DataTemplate>
                             <Grid Background="#FF4ACD5A" Padding="10">
                                 <Grid Width="76" Height="76" >

@@ -26,7 +26,7 @@ namespace AllJoynSampleApp.DeviceViews
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            VM = new ViewModels.SwitchVM(e.Parameter as AllJoynClientLib.Devices.Switch.SwitchClient);
+            VM = new ViewModels.SwitchVM(e.Parameter as AllJoynClientLib.Devices.SwitchClient);
         }
         public ViewModels.SwitchVM VM { get; private set; }
 

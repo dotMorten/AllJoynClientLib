@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AllJoynClientLib.Devices.LSF
+namespace AllJoynClientLib.Devices
 {
-    public partial class LightClient : Switch.SwitchClient
+    public partial class LightClient : SwitchClient
     {
         private IInterface lampState = null;
 

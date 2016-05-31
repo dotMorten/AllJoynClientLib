@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AllJoynClientLib.Devices.Switch
+namespace AllJoynClientLib.Devices
 {
     public abstract class SwitchClient : DeviceClient
     {

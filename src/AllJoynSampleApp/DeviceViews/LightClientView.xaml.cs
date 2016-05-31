@@ -26,7 +26,7 @@ namespace AllJoynSampleApp.DeviceViews
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            VM = new ViewModels.LightVM(e.Parameter as AllJoynClientLib.Devices.LSF.LightClient);
+            VM = new ViewModels.LightVM(e.Parameter as AllJoynClientLib.Devices.LightClient);
         }
         public ViewModels.LightVM VM { get; private set; }
 
