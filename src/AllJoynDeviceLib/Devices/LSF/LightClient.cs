@@ -13,12 +13,16 @@ namespace AllJoynClientLib.Devices.LSF
 
         internal LightClient(DeviceProviders.IService service) : base(service)
         {
-            foreach (var item in service.Objects)
+            var items = service.Objects;
+            if (items != null)
             {
-                if (lampState == null)
-                    lampState = item.GetInterface("org.allseen.LSF.LampState");
-                if (lampDetails == null)
-                    lampDetails = item.GetInterface("org.allseen.LSF.LampDetails");
+                foreach (var item in items)
+	            {
+    	            if (lampState == null)
+        	            lampState = item.GetInterface("org.allseen.LSF.LampState");
+            	    if (lampDetails == null)
+                	    lampDetails = item.GetInterface("org.allseen.LSF.LampDetails");
+                }
             }
         }
 

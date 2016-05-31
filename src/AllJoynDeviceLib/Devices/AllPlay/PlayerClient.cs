@@ -11,16 +11,20 @@ namespace AllJoynClientLib.Devices.AllPlay
             IInterface mcu = null;
             IInterface volume = null;
             IInterface zoneManager = null;
-            foreach (var item in service.Objects)
+            var items = service.Objects;
+            if (items != null)
             {
-                if(mediaPlayer == null)
-                    mediaPlayer = item.GetInterface("net.allplay.MediaPlayer");
-                if (zoneManager == null)
-                    zoneManager = item.GetInterface("net.allplay.ZoneManager");
-                if (mcu == null)
-                    mcu = item.GetInterface("net.allplay.MCU");
-                if (volume == null)
-                    volume = item.GetInterface("org.alljoyn.Control.Volume");
+                foreach (var item in items)
+				{
+					if(mediaPlayer == null)
+						mediaPlayer = item.GetInterface("net.allplay.MediaPlayer");
+					if (zoneManager == null)
+						zoneManager = item.GetInterface("net.allplay.ZoneManager");
+					if (mcu == null)
+						mcu = item.GetInterface("net.allplay.MCU");
+					if (volume == null)
+						volume = item.GetInterface("org.alljoyn.Control.Volume");
+                }
             }
             this.MediaPlayer = new MediaPlayer(mediaPlayer);
             if (volume != null) Volume = new Volume(volume);

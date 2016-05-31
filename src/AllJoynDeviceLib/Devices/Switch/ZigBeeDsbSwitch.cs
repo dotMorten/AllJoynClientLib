@@ -9,12 +9,19 @@ namespace AllJoynClientLib.Devices.Switch
         private IInterface switchInterface = null;
         public ZigBeeDsbSwitch(IService service) : base(service)
         {
-            foreach (var item in service.Objects)
+            var items = service.Objects;
+            if (items != null)
             {
-                if (switchInterface == null)
+                foreach (var item in items)
+    	        {
+	                if (switchInterface == null)
                     switchInterface = item.GetInterface("com.microsoft.ZWaveBridge.SwitchBinary.Switch");
+                    if (switchInterface == null)
+                        switchInterface = item.GetInterface("com.microsoft.ZWaveBridge.Switch");
+                }
             }
         }
+
         public override Task<bool> GetOnOffAsync()
         {
             return switchInterface.GetPropertyAsync<bool>("Value");
