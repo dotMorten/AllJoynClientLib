@@ -13,17 +13,8 @@ namespace AllJoynClientLib.Devices
 
         internal LightClient(DeviceProviders.IService service) : base(service)
         {
-            var items = service.Objects;
-            if (items != null)
-            {
-                foreach (var item in items)
-	            {
-    	            if (lampState == null)
-        	            lampState = item.GetInterface("org.allseen.LSF.LampState");
-            	    if (lampDetails == null)
-                	    lampDetails = item.GetInterface("org.allseen.LSF.LampDetails");
-                }
-            }
+            lampState = GetInterface("org.allseen.LSF.LampState");
+            lampDetails = GetInterface("org.allseen.LSF.LampDetails");
         }
 
         protected override void OnDeviceLost()

@@ -13,6 +13,20 @@ namespace AllJoynClientLib.Devices
             Service = service;
         }
 
+        protected DeviceProviders.IInterface GetInterface(string name)
+        {
+            var items = Service.Objects;
+            if (items != null)
+            {
+                foreach (var item in items)
+                {
+                    var i = item.GetInterface("org.allseen.LSF.LampState");
+                    if (i != null) return i;
+                }
+            }
+            return null;
+        }
+
         internal void DeviceLost()
         {
             OnDeviceLost();

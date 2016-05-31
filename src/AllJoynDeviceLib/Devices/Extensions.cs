@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AllJoynClientLib.Devices
 {
-    internal static class Extensions
+    public static class Extensions
     {
         public static async Task<IList<object>> InvokeMethodAsync(this IInterface i, string method, params object[] p)
         {

@@ -5,28 +5,18 @@ namespace AllJoynClientLib.Devices
 {
     //Link to spec: https://wiki.allseenalliance.org/_media/baseservices/alljoyn_media_control_service_0.3_hld.pdf
     public partial class AllPlayClient :  DeviceClient
-    {        
+    {
         internal AllPlayClient(IService service) : base(service)
         {
             IInterface mediaPlayer = null;
             IInterface mcu = null;
             IInterface volume = null;
             IInterface zoneManager = null;
-            var items = service.Objects;
-            if (items != null)
-            {
-                foreach (var item in items)
-				{
-					if(mediaPlayer == null)
-						mediaPlayer = item.GetInterface("net.allplay.MediaPlayer");
-					if (zoneManager == null)
-						zoneManager = item.GetInterface("net.allplay.ZoneManager");
-					if (mcu == null)
-						mcu = item.GetInterface("net.allplay.MCU");
-					if (volume == null)
-						volume = item.GetInterface("org.alljoyn.Control.Volume");
-                }
-            }
+            mediaPlayer = GetInterface("net.allplay.MediaPlayer");
+            zoneManager = GetInterface("net.allplay.ZoneManager");
+            mcu = GetInterface("net.allplay.MCU");
+            volume = GetInterface("org.alljoyn.Control.Volume");
+
             this.MediaPlayer = new MediaPlayer(mediaPlayer);
             if (volume != null) Volume = new Volume(volume);
             if (zoneManager != null) ZoneManager = new ZoneManager(zoneManager);
