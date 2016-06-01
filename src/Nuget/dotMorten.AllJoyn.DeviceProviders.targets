@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <Target Name="_ValidatePlatformArch" BeforeTargets="Build">
+    <Error Condition="'$(TargetExt)' == '.exe' AND '$(Platform)' != 'x86' AND '$(Platform)' != 'x64' AND '$(Platform)' != 'ARM'"
+           Text="Unsupported platform value '$(Platform)'. The $(MSBuildThisFileName) package requires the Platform to be set to x86, x64, or ARM for executable applications." />
+  </Target>
+  
+  <ItemGroup Condition="'$(ProjectExt)' != '.vcxproj'">
+    <SDKReference Include="Microsoft.VCLibs, Version=14.0">
+      <Name>Visual C++ 2015 Runtime for Universal Windows Platform Apps</Name>
+    </SDKReference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <device-Platform Condition="'$(Platform)' == 'Win32'">x86</device-Platform>
+    <device-Platform Condition="'$(Platform)' != 'Win32'">$(Platform)</device-Platform>
+  </PropertyGroup>
+  
+   <ItemGroup Condition="'$(TargetPlatformIdentifier)' == 'UAP'">
+      <Reference Include="$(MSBuildThisFileDirectory)..\..\lib\uap10.0\DeviceProviders.winmd">
+        <Implementation>RuntimeCoreNet.dll</Implementation>
+      </Reference>
+      <ReferenceCopyLocalPaths Include="$(MSBuildThisFileDirectory)..\..\runtimes\win10-$(device-Platform)\native\DeviceProviders.winmd" />
+  </ItemGroup>
+
+</Project>

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata minClientVersion="2.8.6">
     <id>dotMorten.AllJoyn.DeviceProviders</id>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <title>AllJoyn Device Providers</title>
     <authors>Morten Nielsen</authors>
     <owners>Morten Nielsen</owners>
