@@ -7,6 +7,10 @@ Supported AllJoyn devices:
 - [AllPlay](https://www.qualcomm.com/products/allplay/platform) media players like [Gramofon](https://gramofon.com/) and [Panasonic All](http://www.panasonic.com/uk/consumer/home-entertainment/wireless-speaker-systems.html)
 - Z-Wave switches using [Microsoft's Z-Wave Device Service Bridge](https://developer.microsoft.com/en-us/windows/iot/win10/samples/zwavetutorial)
 
+### Sample App
+The Sample app shows a simple dashboard of all devices. It also provides you with ViewModels for quick reuse in your own applications. Lastly it also shows how to create a custom device client plugin.
+
+Install the Sample App From the store: https://www.microsoft.com/store/apps/9nblggh4wtcv
 
 
 ### Usage:
