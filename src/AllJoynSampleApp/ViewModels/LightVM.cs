@@ -98,7 +98,7 @@ namespace AllJoynSampleApp.ViewModels
         {
             if(await Client.GetHasEffectsAsync())
             {
-                var _ = Client.TransitionLampState(System.TimeSpan.Zero, hue, saturation, null, null);
+                var _ = Client.TransitionLampStateAsync(System.TimeSpan.Zero, hue, saturation, null, null);
                 _Hue = hue;
                 _Saturation = saturation;
                 OnPropertyChanged(nameof(Hue), nameof(Saturation));

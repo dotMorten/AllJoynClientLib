@@ -114,7 +114,7 @@ namespace AllJoynClientLib.Devices
 
             if (await GetHasEffectsAsync().ConfigureAwait(false))
             {
-                await TransitionLampState(TimeSpan.Zero, h, s, b, null);
+                await TransitionLampStateAsync(TimeSpan.Zero, h, s, b, null);
             }
             else
             {
@@ -126,7 +126,7 @@ namespace AllJoynClientLib.Devices
             }
         }
 
-        public Task TransitionLampState(TimeSpan transitionTime, double? hue, double? saturation, double? brightness, double? temperature)
+        public Task TransitionLampStateAsync(TimeSpan transitionTime, double? hue, double? saturation, double? brightness, double? temperature)
         {
             var newState = new Dictionary<object, object>();
             if (hue.HasValue) newState.Add("Hue", (UInt32)(hue.Value / 360 * MaxValue));
