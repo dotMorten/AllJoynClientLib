@@ -20,11 +20,12 @@ Install nuget package:
 PM> Install-Package dotMorten.AllJoyn.AllJoynClientLib
 ```
 
-Sample code:
+### Sample code:
+
 ```csharp
-  
+    //Initialize the device manager
     var manager = new AllJoynClientLib.DeviceManager();
-    manager.DeviceJoined += Manager_DeviceJoined;
+    manager.DeviceJoined += Manager_DeviceJoined; //Listen for devices discovered
     manager.Start();
     
     // ...
@@ -34,16 +35,16 @@ Sample code:
       if(device is LightClient)
       { //We found a light
         var client = (LightClient)device;
-        await client.SetOnOffAsync(true); //turn on light
-        if(await GetIsColorSupportedAsync()) //check the capability of light
+        await client.SetOnOffAsync(true);         //turn on light
+        if(await GetIsColorSupportedAsync())      //check the capability of light
           await client.SetColorAsync(Colors.Red); //Set the color of the light
       }
       else if (device is AllPlayClient)
       { //We found a media player
         var client = (AllPlayClient)device;
-        await client.MediaPlayer.NextAsync(); //Play next track
-        var list = await client.MediaPlayer.GetPlaylistAsync(); //Get playlist
-        await client.Volume.SetVolumeAsync(50); //Set volume
+        await client.MediaPlayer.NextAsync();                   //Play next track
+        var list = await client.MediaPlayer.GetPlaylistAsync(); //Get the current playlist
+        await client.Volume.SetVolumeAsync(50);                 //Set volume
         client.MediaPlayer.PlayStateChanged += OnPlayStateChanged;
       }
     }
@@ -60,7 +61,7 @@ See the test app for more examples
 
 ### Sample App Screenshots
 
-![image](https://cloud.githubusercontent.com/assets/1378165/15732854/53799940-2835-11e6-8a04-507a528d3bc2.png)
+![image](https://cloud.githubusercontent.com/assets/1378165/15732879/862c81b8-2835-11e6-88ea-0e4d61b90a0d.png)
 ![image](https://cloud.githubusercontent.com/assets/1378165/15642681/d0b0fc4e-25fd-11e6-94bf-da701a03f32d.png)
 ![image](https://cloud.githubusercontent.com/assets/1378165/15642715/fbc284c0-25fd-11e6-9bb4-b277a406e067.png)
 
