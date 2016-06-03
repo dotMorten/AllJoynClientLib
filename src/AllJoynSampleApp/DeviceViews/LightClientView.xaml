@@ -24,8 +24,10 @@
                 <TextBlock Text="{x:Bind VM.Client.Manufacturer}" HorizontalAlignment="Right" Margin="20,0" VerticalAlignment="Center" />
             </Grid>
         </Grid>
+        <Image Source="{x:Bind VM.Icon, Mode=OneWay}" 
+               HorizontalAlignment="Right" MaxWidth="30" Stretch="Uniform" VerticalAlignment="Top" />
 
-        <StackPanel Margin="20,50,20,0">
+        <StackPanel Margin="20"  Grid.Row="1">
             <ToggleSwitch Header="Light Switch" IsOn="{x:Bind VM.IsOn, Mode=TwoWay}" />
             <Slider Maximum="100" Value="{x:Bind VM.Brightness, Mode=TwoWay}" Header="Brightness" Visibility="{x:Bind VM.SupportsDimming, Mode=OneWay, Converter={StaticResource boolConverter}}" />
             <Slider Maximum="{x:Bind VM.MaxTemperature, Mode=OneWay}" Minimum="{x:Bind VM.MinTemperature, Mode=OneWay}" Value="{x:Bind VM.Temperature, Mode=TwoWay}" Header="Temperature" Visibility="{x:Bind VM.SupportsTemperature, Mode=OneWay, Converter={StaticResource boolConverter}}"  />
