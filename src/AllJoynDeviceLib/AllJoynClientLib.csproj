@@ -71,7 +71,7 @@
     <None Include="Devices\AllPlay\Introspection.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DeviceProviders\DeviceProviders.vcxproj">
+    <ProjectReference Include="..\..\samples\AllJoyn\Platform\DeviceProviders\DeviceProviders.vcxproj">
       <Project>{46c8debe-21e9-401a-95c4-354ab2c06445}</Project>
       <Name>DeviceProviders</Name>
     </ProjectReference>
