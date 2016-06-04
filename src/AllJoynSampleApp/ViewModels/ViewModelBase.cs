@@ -18,6 +18,13 @@ namespace AllJoynSampleApp.ViewModels
             Dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
         }
 
+        public void GoBack()
+        {
+            var frame = Windows.UI.Xaml.Window.Current.Content as Windows.UI.Xaml.Controls.Frame;
+            if (frame != null && frame.CanGoBack)
+                frame.GoBack();
+        }
+
         protected void ExecuteOnUIThread(Action action)
         {
             if (Dispatcher.HasThreadAccess)

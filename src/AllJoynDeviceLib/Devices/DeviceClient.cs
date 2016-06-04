@@ -88,24 +88,25 @@ namespace AllJoynClientLib.Devices
 
         public async Task<Windows.UI.Xaml.Media.Imaging.BitmapSource> GetIconAsync()
         {
-            var result = await Service?.AboutData?.GetIconAsync();
-            if (result != null)
-            {
-                if (result.Content != null && result.Content.Any())
-                {
-                    var bmp = new Windows.UI.Xaml.Media.Imaging.BitmapImage();
-                    using (var mv = new ReadOnlyByteStream(result.Content))
-                    {
-                        bmp.SetSource(mv.AsRandomAccessStream());
-                    }
-                    return bmp;
-                }
-                Uri uri = null;
-                if(Uri.TryCreate(result.Url, UriKind.Absolute, out uri))
-                {
-                    return new Windows.UI.Xaml.Media.Imaging.BitmapImage(uri);
-                }
-            }
+            //Currently causes a finalizer crash in DeviceProviders so just returning null for now
+            //var result = await Service?.AboutData?.GetIconAsync();
+            //if (result != null)
+            //{
+            //    if (result.Content != null && result.Content.Any())
+            //    {
+            //        var bmp = new Windows.UI.Xaml.Media.Imaging.BitmapImage();
+            //        using (var mv = new ReadOnlyByteStream(result.Content))
+            //        {
+            //            await bmp.SetSourceAsync(mv.AsRandomAccessStream());
+            //        }
+            //        return bmp;
+            //    }
+            //    Uri uri = null;
+            //    if(Uri.TryCreate(result.Url, UriKind.Absolute, out uri))
+            //    {
+            //        return new Windows.UI.Xaml.Media.Imaging.BitmapImage(uri);
+            //    }
+            //}
             return null;
         }
 

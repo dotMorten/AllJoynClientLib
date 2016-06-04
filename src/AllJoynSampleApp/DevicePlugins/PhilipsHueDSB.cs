@@ -24,7 +24,6 @@ namespace AllJoynSampleApp.DevicePlugins
         {
             mainInterface = GetInterface("com.dotMorten.PhilipsHueDSB.PhilipsHue.MainInterface");
             hueInterface = GetInterface("com.dotMorten.PhilipsHueDSB.PhilipsHue");
-            //bool IsLinked {get;}
         }
 
         public Task<bool> GetIsLinkedAsync()

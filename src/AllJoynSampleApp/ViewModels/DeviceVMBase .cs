@@ -1,4 +1,5 @@
 ﻿using AllJoynClientLib.Devices;
+using System;
 using System.Threading.Tasks;
 
 namespace AllJoynSampleApp.ViewModels
@@ -15,9 +16,22 @@ namespace AllJoynSampleApp.ViewModels
 
         private async void OnStart()
         {
-            await Initialize();
-            IsInitialized = true;
-            OnPropertyChanged(nameof(IsInitialized));
+#if !DEBUG
+            try
+            {
+#endif
+                await Initialize();
+                IsInitialized = true;
+                OnPropertyChanged(nameof(IsInitialized));
+#if !DEBUG
+            }
+            catch(System.Exception ex)
+            {
+                var dialog = new Windows.UI.Popups.MessageDialog("An error occurred loading the device.\n" + ex.Message, "Error");
+                var result = await dialog.ShowAsync();
+                GoBack();
+            }
+#endif
         }
 
         protected virtual Task Initialize()
