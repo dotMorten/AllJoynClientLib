@@ -14,8 +14,9 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid >
@@ -27,14 +28,17 @@
         <Image Source="{x:Bind VM.Icon, Mode=OneWay}" 
                HorizontalAlignment="Right" MaxWidth="30" Stretch="Uniform" VerticalAlignment="Top" />
 
-        <StackPanel Margin="20"  Grid.Row="1">
-            <ToggleSwitch Header="Light Switch" IsOn="{x:Bind VM.IsOn, Mode=TwoWay}" />
-            <Slider Maximum="100" Value="{x:Bind VM.Brightness, Mode=TwoWay}" Header="Brightness" Visibility="{x:Bind VM.SupportsDimming, Mode=OneWay, Converter={StaticResource boolConverter}}" />
-            <Slider Maximum="{x:Bind VM.MaxTemperature, Mode=OneWay}" Minimum="{x:Bind VM.MinTemperature, Mode=OneWay}" Value="{x:Bind VM.Temperature, Mode=TwoWay}" Header="Temperature" Visibility="{x:Bind VM.SupportsTemperature, Mode=OneWay, Converter={StaticResource boolConverter}}"  />
-            <ctrls:ColorPicker Width="300" Height="300" HorizontalAlignment="Left" Visibility="{x:Bind VM.SupportsColor, Mode=OneWay, Converter={StaticResource boolConverter}}" 
-                               Hue="{x:Bind VM.Hue, Mode=OneWay}" Saturation="{x:Bind VM.Saturation, Mode=OneWay}"
-                               ColorPicked="ColorPicker_ColorPicked"
-                               />
+        <StackPanel Margin="10"  Grid.Row="1">
+            <ToggleSwitch Header="Light Switch" IsOn="{x:Bind VM.IsOn, Mode=TwoWay}" Margin="10.0" />
+            <ctrls:ColorTemperaturePicker Margin="10,-5,10,10" MaxTemperature="{x:Bind VM.MaxTemperature, Mode=OneWay}" MinTemperature="{x:Bind VM.MinTemperature, Mode=OneWay}" Temperature="{x:Bind VM.Temperature, Mode=TwoWay}" Header="Temperature" Visibility="{x:Bind VM.SupportsTemperature, Mode=OneWay, Converter={StaticResource boolConverter}}"  />
+            <ctrls:BrightnessPicker Margin="10,10,10,0" Header="Brightness" Brightness="{x:Bind VM.Brightness, Mode=TwoWay}" Hue="{x:Bind colorPicker.Hue, Mode=OneWay}" Saturation="{x:Bind colorPicker.Saturation, Mode=OneWay}" Visibility="{x:Bind VM.SupportsDimming, Mode=OneWay, Converter={StaticResource boolConverter}}" />
         </StackPanel>
+        <Grid Margin="10" Grid.Row="2" Visibility="{x:Bind VM.SupportsColor, Mode=OneWay, Converter={StaticResource boolConverter}}">
+            <TextBlock Text="Color" Margin="10,5,0,0" />
+            <ctrls:ColorPicker Margin="0,20,0,0" MinHeight="100" HorizontalAlignment="Stretch"  
+                               Hue="{x:Bind VM.Hue, Mode=OneWay}" Saturation="{x:Bind VM.Saturation, Mode=OneWay}" x:Name="colorPicker"
+                               ColorPicked="ColorPicker_ColorPicked" />
+
+        </Grid>
     </Grid>
 </Page>

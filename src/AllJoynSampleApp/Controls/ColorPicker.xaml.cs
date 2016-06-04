@@ -24,6 +24,12 @@ namespace AllJoynSampleApp.Controls
         public ColorPicker()
         {
             this.InitializeComponent();
+            this.SizeChanged += ColorPicker_SizeChanged;
+        }
+
+        private void ColorPicker_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            UpdateMarker();
         }
 
         private void Grid_PointerPressed(object sender, PointerRoutedEventArgs e)
@@ -39,6 +45,8 @@ namespace AllJoynSampleApp.Controls
             {
                 var element = sender as FrameworkElement;
                 var hs = GetHS(e.GetCurrentPoint(element).Position);
+                Hue = hs.Hue;
+                Saturation = hs.Saturation;
                 marker.Margin = new Thickness(hs.Hue / 360 * PickerArea.ActualWidth, hs.Saturation * PickerArea.ActualHeight, 0, 0);
             }
         }
