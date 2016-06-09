@@ -12,7 +12,7 @@
         <conv:BoolToVisibilityConverter x:Key="boolConverter" />
     </Page.Resources>
 
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
