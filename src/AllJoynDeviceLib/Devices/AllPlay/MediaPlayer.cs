@@ -12,31 +12,37 @@ namespace AllJoynClientLib.Devices.AllPlay
     public partial class MediaPlayer
     {
         private readonly IInterface mediaPlayer;
-        private bool IsAlljoyn;
-        private bool IsAllPlay;
+        private bool isAlljoyn;
+        private bool isAllPlay;
+
         internal MediaPlayer(IInterface mediaPlayer)
         {
             this.mediaPlayer = mediaPlayer;
-            IsAllPlay = mediaPlayer.Name == "net.allplay.MediaPlayer";
-            IsAlljoyn = mediaPlayer.Name == "org.allseen.media.control.mediaPlayer";
+            isAllPlay = mediaPlayer.Name == "net.allplay.MediaPlayer";
+            isAlljoyn = mediaPlayer.Name == "org.allseen.media.control.mediaPlayer";
             InitSignals();
         }
 
         /// <summary>
         /// Get information about the player.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>PlayerInfo</returns>
         public async Task<PlayerInfo> GetPlayerInfoAsync()
         {
             var result = await mediaPlayer.InvokeMethodAsync("GetPlayerInfo").ConfigureAwait(false);
             return new PlayerInfo(result);
         }
 
+        /// <summary>
+        /// NOT IMPLEMENTED
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task GetPlaylistInfoAsync()
         {
             throw new NotImplementedException("TODO");
-            //var result = await mediaPlayer.InvokeMethodAsync("GetPlaylistInfo").ConfigureAwait(false);
-            //return new PlaylistInfo(result);
+
+            // var result = await mediaPlayer.InvokeMethodAsync("GetPlaylistInfo").ConfigureAwait(false);
+            // return new PlaylistInfo(result);
         }
 
         /// <summary>
@@ -46,24 +52,26 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <param name="index">New index of the current item.</param>
         /// <param name="controllerType">User-defined string to identify the controller type.</param>
         /// <param name="playlistUserData">User-defined information.</param>
-        /// <returns></returns>
-        public Task UpdatePlaylistAsync(IEnumerable<Media> items, Int32 index, string controllerType, string playlistUserData)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task UpdatePlaylistAsync(IEnumerable<Media> items, int index, string controllerType, string playlistUserData)
         {
-            //playlistItems: a(ssssxsssa{ss}a{sv}v)
-            //index: i
-            //controllerType: s
-            //playlistUserData: s
-            return mediaPlayer.InvokeMethodAsync("UpdatePlaylist",
-                new List<object>(items.Select(i => i.ToParameter())), index, controllerType ?? "ABC", playlistUserData ?? "ABC");
+            // playlistItems: a(ssssxsssa{ss}a{sv}v)
+            // index: i
+            // controllerType: s
+            // playlistUserData: s
+            return mediaPlayer.InvokeMethodAsync(
+                "UpdatePlaylist",
+                new List<object>(items.Select(i => i.ToParameter())), index, controllerType ?? "ABC",
+                playlistUserData ?? "ABC");
         }
 
         /// <summary>
         /// Current play state information.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Play State</returns>
         public async Task<PlayState> GetPlayStateAsync()
         {
-            //<property name="PlayState" type="(sxuuuiia(ssssxsssa{ss}a{sv}v))" access="read"/>
+            // <property name="PlayState" type="(sxuuuiia(ssssxsssa{ss}a{sv}v))" access="read"/>
             var result = await mediaPlayer.GetPropertyAsync("PlayState");
             var state = result as AllJoynMessageArgStructure;
             return new PlayState(state);
@@ -72,7 +80,7 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <summary>
         /// Gets the Shuffle mode setting
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Shuffle mode</returns>
         public async Task<ShuffleMode> GetShuffleModeAsync()
         {
             var mode = await mediaPlayer.GetPropertyAsync("ShuffleMode").ConfigureAwait(false) as string;
@@ -82,8 +90,8 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <summary>
         /// Sets the Shuffle mode setting
         /// </summary>
-        /// <param name="mode"></param>
-        /// <returns></returns>
+        /// <param name="mode">Shuffle mode</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task SetShuffleModeAsync(ShuffleMode mode)
         {
             return mediaPlayer.SetPropertyAsync("ShuffleMode", mode.ToString().ToUpper());
@@ -103,7 +111,7 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <summary>
         /// Gets the Loop mode setting
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Loop mode</returns>
         public async Task<LoopMode> GetLoopModeAsync()
         {
             var mode = await mediaPlayer.GetPropertyAsync("LoopMode").ConfigureAwait(false) as string;
@@ -113,12 +121,13 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <summary>
         /// Sets the Loop mode setting
         /// </summary>
-        /// <param name="mode"></param>
-        /// <returns></returns>
+        /// <param name="mode">Loop mode</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task SetLoopModeAsync(LoopMode mode)
         {
             return mediaPlayer.SetPropertyAsync("LoopMode", mode.ToString().ToUpper());
         }
+
         private static LoopMode StringToLoopMode(string mode)
         {
             switch (mode)
@@ -131,17 +140,25 @@ namespace AllJoynClientLib.Devices.AllPlay
             }
         }
 
+        /// <summary>
+        /// Gets the enabled controls
+        /// </summary>
+        /// <returns>Enabled controls</returns>
         public async Task<EnabledControls> GetEnabledControlsAsync()
         {
-            //if (IsAlljoyn)
+            // if (IsAlljoyn)
             //    return true;
             var ctrls = await mediaPlayer.GetPropertyAsync("EnabledControls").ConfigureAwait(false);
             return new EnabledControls(ctrls as IList<KeyValuePair<object, object>>);
         }
 
+        /// <summary>
+        /// Gets a value indicating whether playback can be interrupted
+        /// </summary>
+        /// <returns>Whether the playback can be interrupted</returns>
         public Task<bool> GetInterruptibleAsync()
         {
-            //if (IsAlljoyn)
+            // if (IsAlljoyn)
             //    return true;
             return mediaPlayer.GetPropertyAsync<bool>("Interruptible");
         }
@@ -149,17 +166,17 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <summary>
         /// Start playing the next item in the playlist.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task NextAsync()
         {
             return mediaPlayer.InvokeMethodAsync("Next");
         }
 
         /// <summary>
-        /// If currently at the start of the item, then play the previous 
+        /// If currently at the start of the item, then play the previous
         /// item (if it exists). Otherwise, rewind to the start of the item.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task PreviousAsync()
         {
             return mediaPlayer.InvokeMethodAsync("Previous");
@@ -168,16 +185,16 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <summary>
         /// Always move to the previous item regardless of the position in the current item.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task ForcedPreviousAsync()
         {
             return mediaPlayer.InvokeMethodAsync("ForcedPrevious");
         }
 
         /// <summary>
-        /// Stop the playback and set the playback postion to the start of the item.
+        /// Stop the playback and set the playback position to the start of the item.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task StopAsync()
         {
             return mediaPlayer.InvokeMethodAsync("Stop");
@@ -186,7 +203,7 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <summary>
         /// Pause the playback.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task PauseAsync()
         {
             return mediaPlayer.InvokeMethodAsync("Pause");
@@ -195,7 +212,7 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <summary>
         /// Resume the playback
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task ResumeAsync()
         {
             return mediaPlayer.InvokeMethodAsync("Resume");
@@ -203,24 +220,24 @@ namespace AllJoynClientLib.Devices.AllPlay
 
         /// <summary>
         /// Start playing the item at the index at the specified start position.
-        /// If Play() is called while the playlist is playing, it will restart 
+        /// If Play() is called while the playlist is playing, it will restart
         /// playback from the start of the current track.
         /// </summary>
         /// <param name="itemIndex">Index in the playlist of the item to play</param>
         /// <param name="startPosition">Start position</param>
         /// <param name="pauseStateOnly">Indicates whether to start streaming(false) or just pause at the
         /// specific position(true). This is used for transferring of playlists.</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task PlayAsync(int itemIndex, TimeSpan startPosition, bool pauseStateOnly)
         {
             return mediaPlayer.InvokeMethodAsync("Play", itemIndex, (long)startPosition.TotalMilliseconds, pauseStateOnly);
         }
 
         /// <summary>
-        /// Set the current postion in a track.
+        /// Set the current position in a track.
         /// </summary>
         /// <param name="position">Position offset in the play item</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task SetPosition(TimeSpan position)
         {
             return mediaPlayer.InvokeMethodAsync("SetPosition", (long)position.TotalMilliseconds);
@@ -229,7 +246,7 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <summary>
         /// Read the current play list.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The current playlist</returns>
         public async Task<Playlist> GetPlaylistAsync()
         {
             var result = await mediaPlayer.InvokeMethodAsync("GetPlaylist").ConfigureAwait(false);

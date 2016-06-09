@@ -11,12 +11,12 @@ namespace AllJoynSampleApp.ViewModels
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
-        protected CoreDispatcher Dispatcher { get; }
-
         protected ViewModelBase()
         {
             Dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
         }
+
+        protected CoreDispatcher Dispatcher { get; }
 
         public void GoBack()
         {

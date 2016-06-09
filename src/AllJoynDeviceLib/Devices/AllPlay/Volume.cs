@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DeviceProviders;
 
@@ -19,7 +18,7 @@ namespace AllJoynClientLib.Devices.AllPlay
 
         internal Volume(IInterface volume)
         {
-            this.volume = volume;  
+            this.volume = volume;
             _enabledChangedSignal = volume.GetSignal(nameof(EnabledChanged));
             _enabledChangedSignal.SignalRaised += EnabledChangedSignal_SignalRaised;
             _muteChangedSignal = volume.GetSignal(nameof(MuteChanged));
@@ -31,24 +30,25 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <summary>
         /// Indicates if the volume control is enabled.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Value indicating whether volume control is enabled</returns>
         public Task<bool> GetVolumeEnabledAsync()
         {
             return volume.GetPropertyAsync<bool>("Enabled");
         }
+
         /// <summary>
         /// The volume range as 3 values: low, high and minimum increments.
         /// </summary>
-        /// <returns></returns>
-        public Task<Int16[]> GetVolumeRangeAsync()
+        /// <returns>Gets the volume range</returns>
+        public Task<short[]> GetVolumeRangeAsync()
         {
-            return volume.GetPropertyAsync<Int16[]>("VolumeRange");
+            return volume.GetPropertyAsync<short[]>("VolumeRange");
         }
 
         /// <summary>
         /// The volume's mute state.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The current mute state (true if muted)</returns>
         public Task<bool> GetMuteAsync()
         {
             return volume.GetPropertyAsync<bool>("Mute");
@@ -57,39 +57,41 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <summary>
         /// The volume's mute state.
         /// </summary>
-        /// <param name="mute"></param>
-        /// <returns></returns>
+        /// <param name="mute"><c>true</c>to mute, <c>false</c> to unmute</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public Task SetMuteAsync(bool mute)
         {
             return volume.SetPropertyAsync("Mute", mute);
         }
 
         /// <summary>
-        /// The volume.
+        /// Gets the current volume.
         /// </summary>
-        /// <returns></returns>
-        public Task<Int16> GetVolumeAsync()
+        /// <returns>The current volume</returns>
+        /// <seealso cref="GetVolumeRangeAsync"/>
+        public Task<short> GetVolumeAsync()
         {
-            return volume.GetPropertyAsync<Int16>("Volume");
+            return volume.GetPropertyAsync<short>("Volume");
         }
 
         /// <summary>
-        /// The volume.
+        /// Gets the current volume.
         /// </summary>
-        /// <param name="volume"></param>
-        /// <returns></returns>
-        public Task SetVolumeAsync(Int16 volume)
+        /// <param name="volume">Volume</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <seealso cref="GetVolumeRangeAsync"/>
+        public Task SetVolumeAsync(short volume)
         {
             return this.volume.SetPropertyAsync("Volume", volume);
         }
 
         /// <summary>
-        /// Adjust the volume by the given number. The adjustment can be up 
+        /// Adjust the volume by the given number. The adjustment can be up
         /// (positive value) or down (negative value)
         /// </summary>
         /// <param name="delta">Number of increments to adjust.</param>
-        /// <returns></returns>
-        public Task AdjustVolumeAsync(Int16 delta)
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task AdjustVolumeAsync(short delta)
         {
             return volume.InvokeMethodAsync("AdjustVolumeAsync", delta);
         }
@@ -98,7 +100,7 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// Adjust the volume to a percentage of the maximum value.
         /// </summary>
         /// <param name="delta">Change amount</param>
-        /// <returns></returns>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <remarks>
         /// The change has floating point values between -1.0 and 1.0 to represent volume changes between -100% to 100%.
         /// A positive value(respectively negative), will increase(respectively decrease) the volume by the percentage of the “remaining range” towards the maximum(respectively minimum) value, i.e.difference between the current volume and the maximum(respectively minimum) volume.
@@ -117,7 +119,7 @@ namespace AllJoynClientLib.Devices.AllPlay
 
         private void VolumeChangedSignal_SignalRaised(ISignal sender, IList<object> args)
         {
-            VolumeChanged?.Invoke(this, (Int16)args[0]);
+            VolumeChanged?.Invoke(this, (short)args[0]);
         }
 
         private void EnabledChangedSignal_SignalRaised(ISignal sender, IList<object> args)
@@ -143,6 +145,6 @@ namespace AllJoynClientLib.Devices.AllPlay
         /// <summary>
         /// The volume has changed
         /// </summary>
-        public event EventHandler<Int16> VolumeChanged;
+        public event EventHandler<short> VolumeChanged;
     }
 }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AllJoynClientLib.Devices
+﻿namespace AllJoynClientLib.Devices
 {
+    /// <summary>
+    /// Unknown Device.
+    /// </summary>
+    /// <seealso cref="DeviceManager.TrackUnknownDevices" />
     public class UnknownClient : DeviceClient
     {
         internal UnknownClient(DeviceProviders.IService service) : base(service)

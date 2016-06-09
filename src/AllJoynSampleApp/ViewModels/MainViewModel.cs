@@ -50,7 +50,8 @@ namespace AllJoynSampleApp.ViewModels
             {
                 if (_trackUnknownDevices != value)
                 {
-                    _trackUnknownDevices = value; Restart();
+                    _trackUnknownDevices = value;
+                    Restart();
                 }
             }
         }

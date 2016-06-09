@@ -1,8 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace AllJoynClientLib.Devices.AllPlay
 {
+    /// <summary>
+    /// Holds the current state of enabled playback controls
+    /// </summary>
     public class EnabledControls
     {
         internal EnabledControls(IList<KeyValuePair<object, object>> value)
@@ -26,10 +28,30 @@ namespace AllJoynClientLib.Devices.AllPlay
                 }
             }
         }
+
+        /// <summary>
+        /// Gets a value indicating whether changing loop mode is possible.
+        /// </summary>
         public bool LoopMode { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether skipping to next track is possible.
+        /// </summary>
         public bool Next { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether skipping to previous track is possible.
+        /// </summary>
         public bool Previous { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether seeking is possible.
+        /// </summary>
         public bool Seek { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether changing shuffle mode is currently possible.
+        /// </summary>
         public bool ShuffleMode { get; }
     }
 }

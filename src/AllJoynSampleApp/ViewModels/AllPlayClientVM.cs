@@ -49,15 +49,18 @@ namespace AllJoynSampleApp.ViewModels
             });
             client.MediaPlayer.GetLoopModeAsync().ContinueWith((state) =>
             {
-                if (!state.IsFaulted && !state.IsCanceled) { LoopMode = state.Result; OnPropertyChanged(nameof(LoopMode)); };
+                if (!state.IsFaulted && !state.IsCanceled) { LoopMode = state.Result;
+                    OnPropertyChanged(nameof(LoopMode)); };
             });
             client.MediaPlayer.GetShuffleModeAsync().ContinueWith((state) =>
             {
-                if (!state.IsFaulted && !state.IsCanceled) { ShuffleMode = state.Result; OnPropertyChanged(nameof(ShuffleMode)); };
+                if (!state.IsFaulted && !state.IsCanceled) { ShuffleMode = state.Result;
+                    OnPropertyChanged(nameof(ShuffleMode)); };
             });
             client.MediaPlayer.GetInterruptibleAsync().ContinueWith((state) =>
             {
-                if (!state.IsFaulted && !state.IsCanceled) { IsInterruptible = state.Result; OnPropertyChanged(nameof(IsInterruptible)); };
+                if (!state.IsFaulted && !state.IsCanceled) { IsInterruptible = state.Result;
+                    OnPropertyChanged(nameof(IsInterruptible)); };
             });
             if (client.Volume != null)
             {
@@ -66,7 +69,8 @@ namespace AllJoynSampleApp.ViewModels
                 client.Volume.EnabledChanged += Volume_EnabledChanged;
                 client.Volume.GetVolumeAsync().ContinueWith((state) =>
                 {
-                    if (!state.IsFaulted && !state.IsCanceled) { Volume = state.Result; OnPropertyChanged(nameof(Volume)); };
+                    if (!state.IsFaulted && !state.IsCanceled) { Volume = state.Result;
+                        OnPropertyChanged(nameof(Volume)); };
                 });
                 client.Volume.GetVolumeEnabledAsync().ContinueWith((state) =>
                 {

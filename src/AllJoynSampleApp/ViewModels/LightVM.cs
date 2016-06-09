@@ -47,7 +47,8 @@ namespace AllJoynSampleApp.ViewModels
             get { return _isOn; }
             set
             {
-                _isOn = value; OnPropertyChanged();
+                _isOn = value;
+                OnPropertyChanged();
                 var _ = Client.SetOnOffAsync(value);
             }
         }
@@ -61,7 +62,8 @@ namespace AllJoynSampleApp.ViewModels
             }
             set
             {
-                _brightness = value / 100; OnPropertyChanged();
+                _brightness = value / 100;
+                OnPropertyChanged();
                 var _ = Client.SetBrightnessAsync(_brightness);
             }
         }
@@ -75,7 +77,8 @@ namespace AllJoynSampleApp.ViewModels
             }
             set
             {
-                _Hue = value; OnPropertyChanged();
+                _Hue = value;
+                OnPropertyChanged();
                 var _ = Client.SetHueAsync(_Hue);
             }
         }
@@ -89,7 +92,8 @@ namespace AllJoynSampleApp.ViewModels
             }
             set
             {
-                _Saturation = value; OnPropertyChanged();
+                _Saturation = value;
+                OnPropertyChanged();
                 var _ = Client.SetSaturationAsync(_Saturation);
             }
         }
@@ -120,7 +124,8 @@ namespace AllJoynSampleApp.ViewModels
             }
             set
             {
-                _Temperature = value; OnPropertyChanged();
+                _Temperature = value;
+                OnPropertyChanged();
                 var _ = Client.SetTemperatureAsync(_Temperature);
             }
         }

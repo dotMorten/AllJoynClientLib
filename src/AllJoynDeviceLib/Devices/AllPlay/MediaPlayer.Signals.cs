@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using DeviceProviders;
 
 namespace AllJoynClientLib.Devices.AllPlay
@@ -22,60 +21,60 @@ namespace AllJoynClientLib.Devices.AllPlay
             _playStateChangedSignal = mediaPlayer.GetSignal(nameof(PlayStateChanged));
             _playStateChangedSignal.SignalRaised += StateChangedSignal_SignalRaised;
             _playlistChanged = mediaPlayer.GetSignal(nameof(PlaylistChanged));
-            _playlistChanged.SignalRaised += _playlistChanged_SignalRaised;
+            _playlistChanged.SignalRaised += PlaylistChanged_SignalRaised;
             _shuffleModeChanged = mediaPlayer.GetSignal(nameof(ShuffleModeChanged));
-            _shuffleModeChanged.SignalRaised += _shuffleModeChanged_SignalRaised;
+            _shuffleModeChanged.SignalRaised += ShuffleModeChanged_SignalRaised;
             _enabledControlsChanged = mediaPlayer.GetSignal(nameof(EnabledControlsChanged));
-            _enabledControlsChanged.SignalRaised += _enabledControlsChanged_SignalRaised;
+            _enabledControlsChanged.SignalRaised += EnabledControlsChanged_SignalRaised;
             _loopModeChanged = mediaPlayer.GetSignal(nameof(LoopModeChanged));
-            _loopModeChanged.SignalRaised += _loopModeChanged_SignalRaised;
+            _loopModeChanged.SignalRaised += LoopModeChanged_SignalRaised;
             _endOfPlaybackChanged = mediaPlayer.GetSignal(nameof(EndOfPlayback));
-            _endOfPlaybackChanged.SignalRaised += _endOfPlaybackChanged_SignalRaised;
+            _endOfPlaybackChanged.SignalRaised += EndOfPlaybackChanged_SignalRaised;
             _interruptibleChanged = mediaPlayer.GetSignal(nameof(InterruptibleChanged));
-            _interruptibleChanged.SignalRaised += _interruptibleChanged_SignalRaised;
+            _interruptibleChanged.SignalRaised += InterruptibleChanged_SignalRaised;
             _onPlaybackErrorChanged = mediaPlayer.GetSignal(nameof(OnPlaybackError));
-            _onPlaybackErrorChanged.SignalRaised += _onPlaybackErrorChanged_SignalRaised;
+            _onPlaybackErrorChanged.SignalRaised += OnPlaybackErrorChanged_SignalRaised;
         }
 
         internal void OnDeviceLost()
         {
             _playStateChangedSignal.SignalRaised -= StateChangedSignal_SignalRaised;
-            _playlistChanged.SignalRaised -= _playlistChanged_SignalRaised;
-            _shuffleModeChanged.SignalRaised -= _shuffleModeChanged_SignalRaised;
-            _enabledControlsChanged.SignalRaised -= _enabledControlsChanged_SignalRaised;
-            _loopModeChanged.SignalRaised -= _loopModeChanged_SignalRaised;
-            _endOfPlaybackChanged.SignalRaised -= _endOfPlaybackChanged_SignalRaised;
-            _interruptibleChanged.SignalRaised -= _interruptibleChanged_SignalRaised;
-            _onPlaybackErrorChanged.SignalRaised -= _onPlaybackErrorChanged_SignalRaised;
+            _playlistChanged.SignalRaised -= PlaylistChanged_SignalRaised;
+            _shuffleModeChanged.SignalRaised -= ShuffleModeChanged_SignalRaised;
+            _enabledControlsChanged.SignalRaised -= EnabledControlsChanged_SignalRaised;
+            _loopModeChanged.SignalRaised -= LoopModeChanged_SignalRaised;
+            _endOfPlaybackChanged.SignalRaised -= EndOfPlaybackChanged_SignalRaised;
+            _interruptibleChanged.SignalRaised -= InterruptibleChanged_SignalRaised;
+            _onPlaybackErrorChanged.SignalRaised -= OnPlaybackErrorChanged_SignalRaised;
         }
 
-        private void _endOfPlaybackChanged_SignalRaised(ISignal sender, IList<object> args)
+        private void EndOfPlaybackChanged_SignalRaised(ISignal sender, IList<object> args)
         {
             EndOfPlayback?.Invoke(this, EventArgs.Empty);
         }
 
-        private void _interruptibleChanged_SignalRaised(ISignal sender, IList<object> args)
+        private void InterruptibleChanged_SignalRaised(ISignal sender, IList<object> args)
         {
             InterruptibleChanged?.Invoke(this, (bool)args[0]);
         }
 
-        private void _shuffleModeChanged_SignalRaised(ISignal sender, IList<object> args)
+        private void ShuffleModeChanged_SignalRaised(ISignal sender, IList<object> args)
         {
             ShuffleModeChanged?.Invoke(this, StringToShuffleMode(args.First() as string));
         }
 
-        private void _loopModeChanged_SignalRaised(ISignal sender, IList<object> args)
+        private void LoopModeChanged_SignalRaised(ISignal sender, IList<object> args)
         {
             LoopModeChanged?.Invoke(this, StringToLoopMode(args.First() as string));
         }
-        
-        private void _enabledControlsChanged_SignalRaised(ISignal sender, IList<object> args)
+
+        private void EnabledControlsChanged_SignalRaised(ISignal sender, IList<object> args)
         {
             var ctrls = args.First();
             EnabledControlsChanged?.Invoke(this, new EnabledControls(ctrls as IList<KeyValuePair<object, object>>));
         }
 
-        private void _playlistChanged_SignalRaised(ISignal sender, IList<object> args)
+        private void PlaylistChanged_SignalRaised(ISignal sender, IList<object> args)
         {
             PlaylistChanged?.Invoke(this, EventArgs.Empty);
         }
@@ -89,31 +88,49 @@ namespace AllJoynClientLib.Devices.AllPlay
             PlayStateChanged?.Invoke(this, new PlayState(state));
         }
 
-        private void _onPlaybackErrorChanged_SignalRaised(ISignal sender, IList<object> args)
+        private void OnPlaybackErrorChanged_SignalRaised(ISignal sender, IList<object> args)
         {
-            OnPlaybackError?.Invoke(this, new PlaybackErrorEventArgs(args)); 
+            OnPlaybackError?.Invoke(this, new PlaybackErrorEventArgs(args));
         }
 
-
+        /// <summary>
+        /// Raised when the playback has ended
+        /// </summary>
         public event EventHandler EndOfPlayback;
+
+        /// <summary>
+        /// Raised when the set of enavled controls has changed
+        /// </summary>
         public event EventHandler<EnabledControls> EnabledControlsChanged;
+
+        /// <summary>
+        /// Raised when the interruptible state has changed
+        /// </summary>
         public event EventHandler<bool> InterruptibleChanged;
+
+        /// <summary>
+        /// Raised when the loop mode has changed
+        /// </summary>
         public event EventHandler<LoopMode> LoopModeChanged;
+
+        /// <summary>
+        /// Raised when the play state has changed
+        /// </summary>
         public event EventHandler<PlayState> PlayStateChanged;
+
+        /// <summary>
+        /// Raised when the playlist has changed
+        /// </summary>
         public event EventHandler PlaylistChanged;
+
+        /// <summary>
+        /// Raised when the shuffle mode has changed
+        /// </summary>
         public event EventHandler<ShuffleMode> ShuffleModeChanged;
+
+        /// <summary>
+        /// Raised if a playback error occured
+        /// </summary>
         public event EventHandler<PlaybackErrorEventArgs> OnPlaybackError;
-    }
-    public class PlaybackErrorEventArgs : EventArgs
-    {
-        internal PlaybackErrorEventArgs(IList<object> args)
-        {
-            Index = (int)args[0];
-            Error = args[1] as string;
-            Description = args[2] as string;
-        }
-        public int Index { get; }
-        public string Error { get; }
-        public string Description { get; }
     }
 }

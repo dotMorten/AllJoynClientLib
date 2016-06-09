@@ -1,15 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AllJoynClientLib.Devices.AllPlay
+﻿namespace AllJoynClientLib.Devices.AllPlay
 {
+    /// <summary>
+    /// Playlist loop mode
+    /// </summary>
     public enum LoopMode
     {
+        /// <summary>
+        /// Don't loop
+        /// </summary>
         None,
+
+        /// <summary>
+        /// Repeat the current track
+        /// </summary>
         One,
+
+        /// <summary>
+        /// Repeat the entire playlist
+        /// </summary>
         All
     }
 }

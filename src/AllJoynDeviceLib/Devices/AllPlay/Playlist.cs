@@ -1,9 +1,12 @@
-﻿using DeviceProviders;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using DeviceProviders;
 
 namespace AllJoynClientLib.Devices.AllPlay
 {
+    /// <summary>
+    /// A media playlist
+    /// </summary>
     public class Playlist
     {
         internal Playlist(IList<object> result)
@@ -13,16 +16,19 @@ namespace AllJoynClientLib.Devices.AllPlay
             ControllerType = result[1] as string;
             PlaylistUserData = result[2] as string;
         }
+
         /// <summary>
-        /// Items in the play list.
+        /// Gets the items in the playlist.
         /// </summary>
         public IEnumerable<Media> Items { get; }
+
         /// <summary>
-        /// User-defined string to identify the controller type.
+        /// Gets a user-defined string to identify the controller type.
         /// </summary>
         public string ControllerType { get; }
+
         /// <summary>
-        /// User-defined data
+        /// Gets the user-defined data
         /// </summary>
         public string PlaylistUserData { get; }
     }
