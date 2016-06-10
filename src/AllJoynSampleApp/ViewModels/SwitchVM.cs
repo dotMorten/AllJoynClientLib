@@ -20,7 +20,10 @@ namespace AllJoynSampleApp.ViewModels
         public bool IsOn
         {
             get { return _isOn; }
-            set { _isOn = value; OnPropertyChanged();
+            set
+            {
+                _isOn = value;
+                OnPropertyChanged();
                 var _ = Client.SetOnOffAsync(value);
             }
         }

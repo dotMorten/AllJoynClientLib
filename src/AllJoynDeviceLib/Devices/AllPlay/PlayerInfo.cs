@@ -1,40 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AllJoynClientLib.Devices.AllPlay
 {
+    /// <summary>
+    /// Information about the player.
+    /// </summary>
     public class PlayerInfo
     {
-        public PlayerInfo(IList<object> result)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PlayerInfo"/> class.
+        /// </summary>
+        /// <param name="result">The object collection returned from the service.</param>
+        internal PlayerInfo(IList<object> result)
         {
             DisplayName = result[0] as string;
             Capabilities = (result[1] as IList<object>).OfType<string>().ToArray();
             MaximumVolume = (int)result[2];
-            ZoneInfo = new ZoneInfo(result[3]);
+            ZoneInfo = new ZoneInfo(result[3] as DeviceProviders.AllJoynMessageArgStructure);
         }
-        public string DisplayName { get; }
+
         /// <summary>
-        /// Array of the MIME types (string) that the player supports, e.g., {“audio/mpeg”,video/mp4”,”image/jpeg”}.
+        /// Gets the display name.
         /// </summary>
-        public string[] Capabilities { get; } //Note: In alljoyn it's a key/value pair
+        /// <value>The display name.</value>
+        public string DisplayName { get; }
+
         /// <summary>
-        /// Maximum setable volume.
+        /// Gets an array of the MIME types (string) that the player supports, e.g., {“audio/mpeg”,video/mp4”,”image/jpeg”}.
+        /// </summary>
+        public string[] Capabilities { get; } // Note: In alljoyn it's a key/value pair
+
+        /// <summary>
+        /// Gets the maximum settable volume.
         /// </summary>
         public int MaximumVolume { get; }
-        public object ZoneInfo { get; }
-    }
-    public class ZoneInfo
-    {
-        public ZoneInfo(object o)
-        {
-            //ZoneInfo = struct of zone id+timestamp+variant
-            //The variant is either a string of lead player name, or dictionary of {players' known-name + timestamp}
-        }
-        public string ZoneId { get; }
-        public int TimeStamp { get; }
 
+        /// <summary>
+        /// Gets the zone information.
+        /// </summary>
+        /// <value>The zone information.</value>
+        public object ZoneInfo { get; }
     }
 }

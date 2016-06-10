@@ -17,11 +17,19 @@
             <Border>
                 <Border.Background>
                     <LinearGradientBrush EndPoint="1,0">
-                        <GradientStop Color="Red" />
-                        <GradientStop Color="Yellow" Offset=".25" />
-                        <GradientStop Color="Green" Offset=".5" />
-                        <GradientStop Color="Blue" Offset=".75" />
-                        <GradientStop Color="Red" Offset="1" />
+                        <GradientStop Color="Red" Offset="0" />
+                        <GradientStop Color="#ff7f00" Offset="0.0833" />
+                        <GradientStop Color="Yellow" Offset="0.167" />
+                        <GradientStop Color="#7fff00" Offset="0.25" />
+                        <GradientStop Color="Green" Offset="0.333" />
+                        <GradientStop Color="#00ff7f" Offset=".417" />
+                        <GradientStop Color="Cyan" Offset="0.5" />
+                        <GradientStop Color="#007fff" Offset="0.583" />
+                        <GradientStop Color="Blue" Offset="0.667" />
+                        <GradientStop Color="#7f00ff" Offset="0.75" />
+                        <GradientStop Color="Magenta" Offset="0.833" />
+                        <GradientStop Color="#ff007f" Offset="330" />
+                        <GradientStop Color="Red" Offset=".917" />
                     </LinearGradientBrush>
                 </Border.Background>
                 <Border BorderThickness="1" BorderBrush="Black">
@@ -37,5 +45,6 @@
         <Ellipse IsHitTestVisible="True" Width="20" Height="20" Stroke="Black" 
                  x:Name="marker"
                  StrokeThickness="2" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
     </Grid>
 </UserControl>

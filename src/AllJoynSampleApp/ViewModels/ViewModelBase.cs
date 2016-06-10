@@ -11,11 +11,18 @@ namespace AllJoynSampleApp.ViewModels
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
-        protected CoreDispatcher Dispatcher { get; }
-
         protected ViewModelBase()
         {
             Dispatcher = CoreWindow.GetForCurrentThread().Dispatcher;
+        }
+
+        protected CoreDispatcher Dispatcher { get; }
+
+        public void GoBack()
+        {
+            var frame = Windows.UI.Xaml.Window.Current.Content as Windows.UI.Xaml.Controls.Frame;
+            if (frame != null && frame.CanGoBack)
+                frame.GoBack();
         }
 
         protected void ExecuteOnUIThread(Action action)

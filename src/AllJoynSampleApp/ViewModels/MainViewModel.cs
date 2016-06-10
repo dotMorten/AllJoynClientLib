@@ -50,7 +50,8 @@ namespace AllJoynSampleApp.ViewModels
             {
                 if (_trackUnknownDevices != value)
                 {
-                    _trackUnknownDevices = value; Restart();
+                    _trackUnknownDevices = value;
+                    Restart();
                 }
             }
         }
@@ -72,8 +73,11 @@ namespace AllJoynSampleApp.ViewModels
             ExecuteOnUIThread(() =>
             {
                 clients.Remove(e);
+                DeviceDropped?.Invoke(this, e);
             });
         }
+
+        public event EventHandler<DeviceClient> DeviceDropped;
 
         private void Manager_DeviceJoined(object sender, AllJoynClientLib.Devices.DeviceClient e)
         {

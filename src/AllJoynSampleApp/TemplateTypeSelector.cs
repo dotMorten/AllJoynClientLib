@@ -12,11 +12,12 @@ namespace AllJoynSampleApp
     [ContentProperty(Name = nameof(Matches))]
     public class TypeTemplateSelector : DataTemplateSelector
     {
-        public List<TemplateEntry> Matches { get; set; }
         public TypeTemplateSelector()
         {
             this.Matches = new List<TemplateEntry>();
         }
+
+        public List<TemplateEntry> Matches { get; set; }
 
         protected override DataTemplate SelectTemplateCore(object item)
         {

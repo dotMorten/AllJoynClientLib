@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="57398MortenNielsen.AllJoynDeviceDashboard" Publisher="CN=9046012B-8BA9-486D-B131-CAA60D63DE60" Version="1.1.0.0" />
+  <Identity Name="57398MortenNielsen.AllJoynDeviceDashboard" Publisher="CN=9046012B-8BA9-486D-B131-CAA60D63DE60" Version="1.1.1.0" />
   <mp:PhoneIdentity PhoneProductId="48c5d92b-ca44-4330-93c0-dc38beb58654" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>AllJoyn Device Dashboard</DisplayName>

@@ -24,11 +24,23 @@ namespace AllJoynSampleApp
         {
             this.InitializeComponent();
             handler = new KeyEventHandler(App_KeyDown);
+            VM.DeviceDropped += VM_DeviceDropped;
         }
+
+        private async void VM_DeviceDropped(object sender, DeviceClient e)
+        {
+            if(activeClient == e)
+            {
+                await new Windows.UI.Popups.MessageDialog($"The device {e.DeviceName} was lost", "Device Lost").ShowAsync();
+                Frame.GoBack();
+            }
+        }
+
         KeyEventHandler handler;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            activeClient = null;
             base.OnNavigatedTo(e);
             Window.Current.Content.AddHandler(UIElement.KeyDownEvent, handler, true);
         }
@@ -42,6 +54,7 @@ namespace AllJoynSampleApp
             if(e.Key == Windows.System.VirtualKey.F5)
             {
                 VM.Restart();
+
             }
             base.OnKeyDown(e);
         }
@@ -51,7 +64,7 @@ namespace AllJoynSampleApp
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             var item = e.ClickedItem as DeviceClient;
-            if(item is AllJoynClientLib.Devices.LightClient)
+            if (item is AllJoynClientLib.Devices.LightClient)
             {
                 Frame.Navigate(typeof(DeviceViews.LightClientView), item);
             }
@@ -67,7 +80,10 @@ namespace AllJoynSampleApp
             {
                 Frame.Navigate(typeof(DeviceViews.PhilipsHueBridgeView), item);
             }
+            else return;
+            activeClient = item;
         }
+        private DeviceClient activeClient;
 
         private void AboutButton_Click(object sender, RoutedEventArgs e)
         {

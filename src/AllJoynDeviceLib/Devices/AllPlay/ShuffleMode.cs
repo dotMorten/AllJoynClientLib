@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AllJoynClientLib.Devices.AllPlay
+﻿namespace AllJoynClientLib.Devices.AllPlay
 {
+    /// <summary>
+    /// Playlist shuffle mode
+    /// </summary>
     public enum ShuffleMode
     {
+        /// <summary>
+        /// No shuffleling
+        /// </summary>
         Linear,
+
+        /// <summary>
+        /// Shuffle
+        /// </summary>
         Shuffle
     }
 }

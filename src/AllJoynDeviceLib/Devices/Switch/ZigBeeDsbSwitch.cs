@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using DeviceProviders;
 
 namespace AllJoynClientLib.Devices
@@ -7,6 +6,7 @@ namespace AllJoynClientLib.Devices
     internal class ZigBeeDsbSwitch : SwitchClient
     {
         private IInterface switchInterface = null;
+
         public ZigBeeDsbSwitch(IService service) : base(service)
         {
             switchInterface = GetInterface("com.microsoft.ZWaveBridge.SwitchBinary.Switch") ??

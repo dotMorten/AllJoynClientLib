@@ -26,6 +26,8 @@
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\AllJoynClientLib.XML</DocumentationFile>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,14 +37,21 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\AllJoynClientLib.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
+    <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AllJoynServiceException.cs" />
     <Compile Include="Devices\AllPlay\EnabledControls.cs" />
+    <Compile Include="Devices\AllPlay\PlayerReadyEventArgs.cs" />
+    <Compile Include="Devices\AllPlay\ZoneChangedEventArgs.cs" />
+    <Compile Include="Devices\AllPlay\PlaybackErrorEventArgs.cs" />
+    <Compile Include="Devices\AllPlay\SlaveStateEventArgs.cs" />
+    <Compile Include="Devices\AllPlay\ZoneInfo.cs" />
     <Compile Include="Devices\Extensions.cs" />
     <Compile Include="Devices\AllPlay\LoopMode.cs" />
     <Compile Include="Devices\AllPlay\Mcu.cs" />
@@ -64,6 +73,7 @@
     <Compile Include="Devices\Switch\ZigBeeDsbSwitch.cs" />
     <Compile Include="Devices\UnknownClient.cs" />
     <Compile Include="Devices\Switch\SwitchClient.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\AllJoynDeviceLib.rd.xml" />
   </ItemGroup>
