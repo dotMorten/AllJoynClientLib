@@ -28,8 +28,6 @@ namespace AllJoynClientLib.Devices.AllPlay
                     NextMedia = new Media(t[1] as AllJoynMessageArgStructure);
                 }
             }
-
-            // Note: Still a few more values for custom data not being processed here
         }
 
         private static MediaState StringToMediaState(string mode)

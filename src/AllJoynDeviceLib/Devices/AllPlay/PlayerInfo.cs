@@ -17,7 +17,7 @@ namespace AllJoynClientLib.Devices.AllPlay
             DisplayName = result[0] as string;
             Capabilities = (result[1] as IList<object>).OfType<string>().ToArray();
             MaximumVolume = (int)result[2];
-            ZoneInfo = new ZoneInfo(result[3]);
+            ZoneInfo = new ZoneInfo(result[3] as DeviceProviders.AllJoynMessageArgStructure);
         }
 
         /// <summary>

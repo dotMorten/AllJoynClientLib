@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DeviceProviders;
 
@@ -30,7 +31,8 @@ namespace AllJoynClientLib.Devices
             var result = await m.InvokeAsync(new List<object>(p)).AsTask().ConfigureAwait(false);
             if (result.Status.IsFailure)
             {
-                throw new AllJoynServiceException(result.Status, i, method + "(...)");
+                string plist = (p == null) ? string.Empty : string.Join(",", p.Select(t => t.GetType().Name));
+                throw new AllJoynServiceException(result.Status, i, $"{method}({plist})");
             }
 
             return result.Values;
@@ -56,7 +58,7 @@ namespace AllJoynClientLib.Devices
             var result = await m.ReadValueAsync().AsTask().ConfigureAwait(false);
             if (result.Status.IsFailure)
             {
-                throw new AllJoynServiceException(result.Status, i, "get " + property);
+                throw new AllJoynServiceException(result.Status, i, "get::" + property);
             }
 
             return (T)result.Value;
@@ -95,7 +97,7 @@ namespace AllJoynClientLib.Devices
             var result = await m.SetValueAsync(newValue).AsTask().ConfigureAwait(false);
             if (result.IsFailure)
             {
-                throw new AllJoynServiceException(result, i, "set " + property);
+                throw new AllJoynServiceException(result, i, "set::" + property);
             }
         }
     }
