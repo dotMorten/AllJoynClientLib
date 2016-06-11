@@ -48,6 +48,7 @@ namespace AllJoynSampleApp.Controls
                 Hue = hs.Hue;
                 Saturation = hs.Saturation;
                 marker.Margin = new Thickness(hs.Hue / 360 * PickerArea.ActualWidth, hs.Saturation * PickerArea.ActualHeight, 0, 0);
+                ColorChanging?.Invoke(this, hs);
             }
         }
 
@@ -60,6 +61,7 @@ namespace AllJoynSampleApp.Controls
                 var hs = GetHS(e.GetCurrentPoint(element).Position);
                 Hue = hs.Hue;
                 Saturation = hs.Saturation;
+                ColorChanging?.Invoke(this, hs);
                 ColorPicked?.Invoke(this, new HS() { Hue = hs.Hue, Saturation = hs.Saturation });
             }
         }
@@ -111,6 +113,7 @@ namespace AllJoynSampleApp.Controls
         }
 
         public event EventHandler<HS> ColorPicked;
+        public event EventHandler<HS> ColorChanging;
 
         public struct HS
         {

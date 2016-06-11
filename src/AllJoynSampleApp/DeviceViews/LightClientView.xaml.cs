@@ -30,7 +30,7 @@ namespace AllJoynSampleApp.DeviceViews
         }
         public ViewModels.LightVM VM { get; private set; }
 
-        private void ColorPicker_ColorPicked(object sender, Controls.ColorPicker.HS e)
+        private void ColorPicker_ColorChanging(object sender, Controls.ColorPicker.HS e)
         {
             VM.SetHueAndSaturation(e.Hue, e.Saturation);
         }

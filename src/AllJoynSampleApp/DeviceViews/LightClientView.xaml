@@ -37,7 +37,8 @@
             <TextBlock Text="Color" Margin="10,5,0,0" />
             <ctrls:ColorPicker Margin="0,20,0,0" MinHeight="100" HorizontalAlignment="Stretch"  
                                Hue="{x:Bind VM.Hue, Mode=OneWay}" Saturation="{x:Bind VM.Saturation, Mode=OneWay}" x:Name="colorPicker"
-                               ColorPicked="ColorPicker_ColorPicked" />
+                               ColorChanging="ColorPicker_ColorChanging"
+                               />
 
         </Grid>
     </Grid>

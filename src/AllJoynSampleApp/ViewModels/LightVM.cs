@@ -53,6 +53,7 @@ namespace AllJoynSampleApp.ViewModels
             }
         }
 
+        private ThrottleTask brightnessThrottle = new ThrottleTask(50);
         private double _brightness;
         public double Brightness
         {
@@ -64,7 +65,10 @@ namespace AllJoynSampleApp.ViewModels
             {
                 _brightness = value / 100;
                 OnPropertyChanged();
-                var _ = Client.SetBrightnessAsync(_brightness);
+                brightnessThrottle.Invoke(() =>
+                {
+                    var _ = Client.SetBrightnessAsync(_brightness);
+                });
             }
         }
 
@@ -98,8 +102,13 @@ namespace AllJoynSampleApp.ViewModels
             }
         }
 
-        public async void SetHueAndSaturation(double hue, double saturation)
+        ThrottleTask huesat = new ThrottleTask(50);
+        public void SetHueAndSaturation(double hue, double saturation)
         {
+            huesat.Invoke(() => { SetHueAndSaturationInternal(hue, saturation); });
+        }
+        private async void SetHueAndSaturationInternal(double hue, double saturation)
+        { 
             if(await Client.GetHasEffectsAsync())
             {
                 var _ = Client.TransitionLampStateAsync(System.TimeSpan.Zero, hue, saturation, null, null);
@@ -115,6 +124,7 @@ namespace AllJoynSampleApp.ViewModels
         }
 
 
+        private ThrottleTask temperatureThrottle = new ThrottleTask(50);
         private double _Temperature = 2800;
         public double Temperature
         {
@@ -126,7 +136,10 @@ namespace AllJoynSampleApp.ViewModels
             {
                 _Temperature = value;
                 OnPropertyChanged();
-                var _ = Client.SetTemperatureAsync(_Temperature);
+                temperatureThrottle.Invoke(() =>
+                {
+                    var _ = Client.SetTemperatureAsync(_Temperature);
+                });
             }
         }
     }

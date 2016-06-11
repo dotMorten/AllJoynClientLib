@@ -124,6 +124,7 @@
       <DependentUpon>SwitchClientView.xaml</DependentUpon>
     </Compile>
     <Compile Include="TemplateTypeSelector.cs" />
+    <Compile Include="ThrottleTask.cs" />
     <Compile Include="ViewModels\AllPlayClientVM.cs" />
     <Compile Include="DeviceViews\LightClientView.xaml.cs">
       <DependentUpon>LightClientView.xaml</DependentUpon>
