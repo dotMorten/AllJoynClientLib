@@ -12,17 +12,18 @@ namespace AllJoynSampleApp.ViewModels
     public class MediaPlayerVM : ViewModelBase
     {
         private readonly AllPlayClient _client;
-        private PlayState lastKnownState;
-        private DateTime timeOfLastKnownState;
+        private PlayState _lastKnownState;
+        private DateTime _timeOfLastKnownState;
         private EnabledControls _enabledControls;
-        private readonly Windows.UI.Xaml.DispatcherTimer positionTimer;
-        private PlayerInfo playerInfo;
+        private readonly Windows.UI.Xaml.DispatcherTimer _positionTimer;
+        private PlayerInfo _playerInfo;
 
         public MediaPlayerVM(AllPlayClient client)
         {
             _client = client;
-            positionTimer = new Windows.UI.Xaml.DispatcherTimer() { Interval = TimeSpan.FromSeconds(1) };
-            positionTimer.Tick += PositionTimer_Tick;
+            _client.DeviceLost += _client_DeviceLost;
+            _positionTimer = new Windows.UI.Xaml.DispatcherTimer() { Interval = TimeSpan.FromSeconds(1) };
+            _positionTimer.Tick += PositionTimer_Tick;
             client.MediaPlayer.PlayStateChanged += PlayStateChanged;
             client.MediaPlayer.PlaylistChanged += MediaPlayer_PlaylistChanged;
             client.MediaPlayer.ShuffleModeChanged += MediaPlayer_ShuffleModeChanged;
@@ -32,7 +33,7 @@ namespace AllJoynSampleApp.ViewModels
             client.MediaPlayer.EndOfPlayback += MediaPlayer_EndOfPlayback;
             client.MediaPlayer.GetPlayerInfoAsync().ContinueWith((state) =>
             {
-                if (!state.IsFaulted && !state.IsCanceled) playerInfo = state.Result;
+                if (!state.IsFaulted && !state.IsCanceled) _playerInfo = state.Result;
             });
 
             client.MediaPlayer.GetPlayStateAsync().ContinueWith((state) =>
@@ -91,6 +92,12 @@ namespace AllJoynSampleApp.ViewModels
             volumeDownCommand = new GenericCommand((o) => { _client.Volume.AdjustVolumeAsync(-2); }, (o) => { return IsVolumeEnabled; });
         }
 
+        private void _client_DeviceLost(object sender, EventArgs e)
+        {
+            _lastKnownState = null;
+            _playerInfo = null;
+        }
+
         public AllPlayClient Client { get { return _client; } }
 
         private void PositionTimer_Tick(object sender, object e)
@@ -103,22 +110,22 @@ namespace AllJoynSampleApp.ViewModels
             get
             {
                 int seconds = 0;
-                if (lastKnownState != null)
+                if (_lastKnownState != null)
                 {
                     //Round to whole seconds - prettier in the view
-                    if (lastKnownState.State == MediaState.Playing)
+                    if (_lastKnownState.State == MediaState.Playing)
                     {
-                        seconds = (int)(DateTime.Now - timeOfLastKnownState + lastKnownState.Position).TotalSeconds;
+                        seconds = (int)(DateTime.Now - _timeOfLastKnownState + _lastKnownState.Position).TotalSeconds;
                     }
                     else
-                        seconds = (int)lastKnownState.Position.TotalSeconds;
+                        seconds = (int)_lastKnownState.Position.TotalSeconds;
                 }
                 return TimeSpan.FromSeconds(seconds);
             }
         }
-        public Media CurrentMedia { get { return lastKnownState?.CurrentMedia; } }
-        public Media NextMedia { get { return lastKnownState?.NextMedia; } }
-        public MediaState MediaState { get { return lastKnownState == null ? MediaState.Stopped : lastKnownState.State; } }
+        public Media CurrentMedia { get { return _lastKnownState?.CurrentMedia; } }
+        public Media NextMedia { get { return _lastKnownState?.NextMedia; } }
+        public MediaState MediaState { get { return _lastKnownState == null ? MediaState.Stopped : _lastKnownState.State; } }
 
         public LoopMode LoopMode { get; private set; }
         public ShuffleMode ShuffleMode { get; private set; }
@@ -199,18 +206,18 @@ namespace AllJoynSampleApp.ViewModels
 
         private void UpdateMediaState(PlayState state)
         {
-            lastKnownState = state;
-            timeOfLastKnownState = DateTime.Now;
+            _lastKnownState = state;
+            _timeOfLastKnownState = DateTime.Now;
             var _= Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
             {
                 if (state.State == MediaState.Playing)
                 {
-                    if (!positionTimer.IsEnabled)
-                        positionTimer.Start();
+                    if (!_positionTimer.IsEnabled)
+                        _positionTimer.Start();
                 }
                 else
                 {
-                    positionTimer.Stop();
+                    _positionTimer.Stop();
                 }
             });
             OnPropertyChanged(nameof(CurrentMedia), nameof(NextMedia), nameof(MediaState), nameof(Position));

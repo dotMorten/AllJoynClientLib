@@ -81,7 +81,7 @@ namespace AllJoynClientLib
                 {
                     foreach (var client in device.Value)
                     {
-                        client.DeviceLost();
+                        client.ServiceDropped();
                     }
                 }
 
@@ -144,7 +144,7 @@ namespace AllJoynClientLib
             {
                 foreach (var client in clients)
                 {
-                    client.DeviceLost();
+                    client.ServiceDropped();
                     DeviceDropped?.Invoke(this, client);
                 }
             }

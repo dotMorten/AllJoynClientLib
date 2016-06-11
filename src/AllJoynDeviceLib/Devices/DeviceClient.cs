@@ -42,10 +42,13 @@ namespace AllJoynClientLib.Devices
             return null;
         }
 
-        internal void DeviceLost()
+        internal void ServiceDropped()
         {
             OnDeviceLost();
+            DeviceLost?.Invoke(this, EventArgs.Empty);
         }
+
+        public event EventHandler DeviceLost;
 
         /// <summary>
         /// Called when the device was lost from the network

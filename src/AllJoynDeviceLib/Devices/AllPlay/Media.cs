@@ -89,7 +89,7 @@ namespace AllJoynClientLib.Devices.AllPlay
                 }
             }
 
-            argument.Add(otherData);
+            argument.Add(otherData.ToList());
 
             // medium desc: a{sv}
             var mediumDesc = new Dictionary<object, object>();
@@ -101,7 +101,7 @@ namespace AllJoynClientLib.Devices.AllPlay
                 }
             }
 
-            argument.Add(mediumDesc);
+            argument.Add(mediumDesc.ToList());
 
             // AllJoynMessageArgVariant v = new AllJoynMessageArgVariant();
             // var arg = new DeviceProviders.AllJoynMessageArgVariant(AllJoynTypeDefinition.CreateTypeDefintions("v").First(), 0);
