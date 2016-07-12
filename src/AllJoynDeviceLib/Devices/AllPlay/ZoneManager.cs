@@ -46,6 +46,8 @@ namespace AllJoynClientLib.Devices.AllPlay
             throw new NotImplementedException("TODO");
         }
 
+        /* No reason to expose in a client lib :
+         * This is used by the zone lead player to tell other slaves who leads
         /// <summary>
         /// Assigns the zone lead
         /// </summary>
@@ -56,6 +58,7 @@ namespace AllJoynClientLib.Devices.AllPlay
         public Task<DateTime> SetZoneLead(string zoneId, string timeServerIp, ushort timeServerPort)
         {
             throw new NotImplementedException("TODO");
+        }*/
         }
 
         /// <summary>
