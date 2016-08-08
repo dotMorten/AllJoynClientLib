@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using DeviceProviders;
 
 namespace AllJoynClientLib.Devices.SmartSpaces
@@ -41,6 +43,42 @@ namespace AllJoynClientLib.Devices.SmartSpaces
         public Task<ushort> GetUpdateMinTimeAsync()
         {
             return iface.GetPropertyAsync<ushort>("UpdateMinTime");
+        }
+
+        private IProperty _currentValueProperty;
+
+        private event EventHandler<double> _currentValueChanged;
+
+        /// <summary>
+        /// Raised when the current value has changed
+        /// </summary>
+        public event EventHandler<double> CurrentValueChanged
+        {
+            add
+            {
+                if (_currentValueProperty == null)
+                {
+                    _currentValueProperty = iface.GetProperty("CurrentValue");
+                    _currentValueProperty.ValueChanged += CurrentTemperatureClient_ValueChanged;
+                }
+
+                _currentValueChanged += value;
+            }
+
+            remove
+            {
+                _currentValueChanged -= value;
+                if (_currentValueChanged == null && _currentValueProperty != null)
+                {
+                    _currentValueProperty.ValueChanged -= CurrentTemperatureClient_ValueChanged;
+                    _currentValueProperty = null;
+                }
+            }
+        }
+
+        private void CurrentTemperatureClient_ValueChanged(IProperty sender, object args)
+        {
+            _currentValueChanged?.Invoke(this, (double)args);
         }
     }
 }

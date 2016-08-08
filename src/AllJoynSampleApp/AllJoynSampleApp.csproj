@@ -120,6 +120,9 @@
     <Compile Include="DeviceViews\PhilipsHueBridgeView.xaml.cs">
       <DependentUpon>PhilipsHueBridgeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DeviceViews\TemperatureClientView.xaml.cs">
+      <DependentUpon>TemperatureClientView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DeviceViews\SwitchClientView.xaml.cs">
       <DependentUpon>SwitchClientView.xaml</DependentUpon>
     </Compile>
@@ -135,6 +138,7 @@
     <Compile Include="ViewModels\GenericCommand.cs" />
     <Compile Include="ViewModels\DeviceVMBase .cs" />
     <Compile Include="ViewModels\PhilipsHueBridgeVM.cs" />
+    <Compile Include="ViewModels\CurrentTemperatureVM.cs" />
     <Compile Include="ViewModels\SwitchVM.cs" />
     <Compile Include="ViewModels\LightVM.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -176,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="DeviceViews\PhilipsHueBridgeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DeviceViews\TemperatureClientView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
