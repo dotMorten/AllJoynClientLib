@@ -47,7 +47,9 @@ namespace AllJoynClientLib.Devices.SmartSpaces
 
         private IProperty _currentValueProperty;
 
+#pragma warning disable SA1300 // Code analyzer bug
         private event EventHandler<double> _currentValueChanged;
+#pragma warning restore SA1300 // Code analyzer bug
 
         /// <summary>
         /// Raised when the current value has changed

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using DeviceProviders;
+using System;
 
 namespace AllJoynClientLib.Devices.SmartSpaces
 {
@@ -33,5 +34,44 @@ namespace AllJoynClientLib.Devices.SmartSpaces
         {
             return iface.GetPropertyAsync<double>("MaxValue");
         }
+
+        private IProperty _currentValueProperty;
+
+#pragma warning disable SA1300 // Code analyzer bug
+        private event EventHandler<double> _currentValueChanged;
+#pragma warning restore SA1300 // Code analyzer bug
+
+        /// <summary>
+        /// Raised when the current value has changed
+        /// </summary>
+        public event EventHandler<double> CurrentValueChanged
+        {
+            add
+            {
+                if (_currentValueProperty == null)
+                {
+                    _currentValueProperty = iface.GetProperty("CurrentValue");
+                    _currentValueProperty.ValueChanged += CurrentTemperatureClient_ValueChanged;
+                }
+
+                _currentValueChanged += value;
+            }
+
+            remove
+            {
+                _currentValueChanged -= value;
+                if (_currentValueChanged == null && _currentValueProperty != null)
+                {
+                    _currentValueProperty.ValueChanged -= CurrentTemperatureClient_ValueChanged;
+                    _currentValueProperty = null;
+                }
+            }
+        }
+
+        private void CurrentTemperatureClient_ValueChanged(IProperty sender, object args)
+        {
+            _currentValueChanged?.Invoke(this, (double)args);
+        }
+
     }
 }
