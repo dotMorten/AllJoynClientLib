@@ -80,6 +80,10 @@ namespace AllJoynSampleApp
             {
                 Frame.Navigate(typeof(DeviceViews.TemperatureClientView), item);
             }
+            else if (item is AllJoynClientLib.Devices.SmartSpaces.CurrentHumidityClient)
+            {
+                Frame.Navigate(typeof(DeviceViews.HumidityClientView), item);
+            }
             else if (item is DevicePlugins.PhilipsHueDSB)
             {
                 Frame.Navigate(typeof(DeviceViews.PhilipsHueBridgeView), item);
