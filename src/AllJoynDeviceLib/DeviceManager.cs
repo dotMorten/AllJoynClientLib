@@ -21,6 +21,8 @@ namespace AllJoynClientLib
             RegisterClient("org.allseen.LSF.LampState", (svc) => new Devices.LightClient(svc));
             RegisterClient("com.microsoft.ZWaveBridge.SwitchBinary.Switch", (svc) => new Devices.ZigBeeDsbSwitch(svc));
             RegisterClient("com.microsoft.ZWaveBridge.Switch", (svc) => new Devices.ZigBeeDsbSwitch(svc));
+            RegisterClient("org.alljoyn.SmartSpaces.Environment.CurrentTemperature", (svc) => new Devices.SmartSpaces.CurrentTemperatureClient(svc));
+            RegisterClient("org.alljoyn.SmartSpaces.Environment.CurrentHumidity", (svc) => new Devices.SmartSpaces.CurrentHumidityClient(svc));
         }
 
         /// <summary>

@@ -70,6 +70,8 @@
     <Compile Include="Devices\DeviceClient.cs" />
     <Compile Include="Devices\LSF\LightClient.Details.cs" />
     <Compile Include="Devices\LSF\LightClient.cs" />
+    <Compile Include="Devices\SmartSpaces\CurrentHumidityClient.cs" />
+    <Compile Include="Devices\SmartSpaces\CurrentTemperatureClient.cs" />
     <Compile Include="Devices\Switch\ZigBeeDsbSwitch.cs" />
     <Compile Include="Devices\UnknownClient.cs" />
     <Compile Include="Devices\Switch\SwitchClient.cs" />
