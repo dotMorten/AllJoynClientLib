@@ -1,6 +1,6 @@
 ﻿{
   "dependencies": {
-    "dotMorten.AllJoyn.DeviceProviders": "1.1.0",
+    "dotMorten.AllJoyn.DeviceProviders": "1.1.1",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.0.0",
     "StyleCop.Analyzers": {
       "version": "1.0.0",

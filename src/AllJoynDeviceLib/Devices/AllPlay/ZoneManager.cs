@@ -59,7 +59,6 @@ namespace AllJoynClientLib.Devices.AllPlay
         {
             throw new NotImplementedException("TODO");
         }*/
-        }
 
         /// <summary>
         /// Raised if the enabled state has changed
