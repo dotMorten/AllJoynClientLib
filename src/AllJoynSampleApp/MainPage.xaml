@@ -82,7 +82,7 @@
                             </Grid>
                         </DataTemplate>
                     </local:TemplateEntry>
-                    <local:TemplateEntry TypeName="AllJoynClientLib.Devices.ZigBeeDsbSwitch">
+                    <local:TemplateEntry TypeName="AllJoynClientLib.Devices.SwitchClient">
                         <DataTemplate>
                             <Grid Background="#FF4ACD5A" Padding="10">
                                 <Grid Width="76" Height="76" >

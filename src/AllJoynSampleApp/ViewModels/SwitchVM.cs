@@ -11,7 +11,14 @@ namespace AllJoynSampleApp.ViewModels
 
         protected override async Task Initialize()
         {
+            Client.Toggled += Client_Toggled;
             _isOn = await Client.GetOnOffAsync();
+            OnPropertyChanged(nameof(IsOn));
+        }
+
+        private void Client_Toggled(object sender, bool e)
+        {
+            _isOn = e;
             OnPropertyChanged(nameof(IsOn));
         }
 
