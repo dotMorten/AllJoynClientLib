@@ -16,6 +16,12 @@ namespace AllJoynSampleApp.ViewModels
             OnPropertyChanged(nameof(IsOn));
         }
 
+        protected internal override void Unload()
+        {
+            Client.Toggled -= Client_Toggled;
+            base.Unload();
+        }
+
         private void Client_Toggled(object sender, bool e)
         {
             _isOn = e;

@@ -11,7 +11,7 @@ namespace AllJoynSampleApp.ViewModels
 {
     public class MediaPlayerVM : ViewModelBase
     {
-        private readonly AllPlayClient _client;
+        private AllPlayClient _client;
         private PlayState _lastKnownState;
         private DateTime _timeOfLastKnownState;
         private EnabledControls _enabledControls;
@@ -21,7 +21,7 @@ namespace AllJoynSampleApp.ViewModels
         public MediaPlayerVM(AllPlayClient client)
         {
             _client = client;
-            _client.DeviceLost += _client_DeviceLost;
+            _client.DeviceLost += Client_DeviceLost;
             _positionTimer = new Windows.UI.Xaml.DispatcherTimer() { Interval = TimeSpan.FromSeconds(1) };
             _positionTimer.Tick += PositionTimer_Tick;
             client.MediaPlayer.PlayStateChanged += PlayStateChanged;
@@ -92,10 +92,34 @@ namespace AllJoynSampleApp.ViewModels
             volumeDownCommand = new GenericCommand((o) => { _client.Volume.AdjustVolumeAsync(-2); }, (o) => { return IsVolumeEnabled; });
         }
 
-        private void _client_DeviceLost(object sender, EventArgs e)
+
+        internal void Unload()
         {
-            _lastKnownState = null;
-            _playerInfo = null;
+            if (_client != null)
+            {
+                _client.DeviceLost -= Client_DeviceLost;
+                _client.MediaPlayer.PlayStateChanged -= PlayStateChanged;
+                _client.MediaPlayer.PlaylistChanged -= MediaPlayer_PlaylistChanged;
+                _client.MediaPlayer.ShuffleModeChanged -= MediaPlayer_ShuffleModeChanged;
+                _client.MediaPlayer.LoopModeChanged -= MediaPlayer_LoopModeChanged;
+                _client.MediaPlayer.InterruptibleChanged -= MediaPlayer_InterruptibleChanged;
+                _client.MediaPlayer.EnabledControlsChanged -= MediaPlayer_EnabledControlsChanged;
+                _client.MediaPlayer.EndOfPlayback -= MediaPlayer_EndOfPlayback;
+                if (_client.Volume != null)
+                {
+                    _client.Volume.VolumeChanged -= Volume_VolumeChanged;
+                    _client.Volume.MuteChanged -= Volume_MuteChanged;
+                    _client.Volume.EnabledChanged -= Volume_EnabledChanged;
+                }
+                _lastKnownState = null;
+                _playerInfo = null;
+                _client = null;
+            }
+        }
+
+        private void Client_DeviceLost(object sender, EventArgs e)
+        {
+            Unload();
         }
 
         public AllPlayClient Client { get { return _client; } }

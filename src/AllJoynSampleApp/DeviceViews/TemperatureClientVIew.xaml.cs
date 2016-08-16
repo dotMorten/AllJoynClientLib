@@ -28,6 +28,12 @@ namespace AllJoynSampleApp.DeviceViews
             base.OnNavigatedTo(e);
             VM = new ViewModels.CurrentTemperatureVM(e.Parameter as AllJoynClientLib.Devices.SmartSpaces.CurrentTemperatureClient);
         }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            VM.Unload();
+            base.OnNavigatingFrom(e);
+        }
         public ViewModels.CurrentTemperatureVM VM { get; private set; }
 
     }

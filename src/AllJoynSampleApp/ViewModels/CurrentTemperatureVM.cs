@@ -17,6 +17,11 @@ namespace AllJoynSampleApp.ViewModels
             OnPropertyChanged(nameof(Temperature));
             Client.CurrentValueChanged += Client_CurrentValueChanged;
         }
+        protected internal override void Unload()
+        {
+            Client.CurrentValueChanged -= Client_CurrentValueChanged;
+            base.Unload();
+        }
 
         private void Client_CurrentValueChanged(object sender, double e)
         {

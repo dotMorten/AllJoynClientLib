@@ -28,6 +28,13 @@ namespace AllJoynSampleApp.DeviceViews
             base.OnNavigatedTo(e);
             VM = new ViewModels.SwitchVM(e.Parameter as AllJoynClientLib.Devices.SwitchClient);
         }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            VM.Unload();
+            base.OnNavigatingFrom(e);
+        }
+
         public ViewModels.SwitchVM VM { get; private set; }
 
     }

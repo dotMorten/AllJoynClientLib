@@ -28,6 +28,13 @@ namespace AllJoynSampleApp.DeviceViews
             base.OnNavigatedTo(e);
             VM = new ViewModels.LightVM(e.Parameter as AllJoynClientLib.Devices.LightClient);
         }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            VM.Unload();
+            base.OnNavigatingFrom(e);
+        }
+
         public ViewModels.LightVM VM { get; private set; }
 
         private void ColorPicker_ColorChanging(object sender, Controls.ColorPicker.HS e)

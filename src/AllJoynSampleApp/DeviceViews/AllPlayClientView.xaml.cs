@@ -31,6 +31,13 @@ namespace AllJoynSampleApp.DeviceViews
             base.OnNavigatedTo(e);
             VM = new ViewModels.MediaPlayerVM(e.Parameter as AllJoynClientLib.Devices.AllPlayClient);
         }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            VM.Unload();
+            base.OnNavigatingFrom(e);
+        }
+
         private void playlist_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             VM?.PlayListEntry(playlist.SelectedIndex);

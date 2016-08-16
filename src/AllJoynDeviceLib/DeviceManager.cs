@@ -106,6 +106,7 @@ namespace AllJoynClientLib
                 if (svc.ImplementsInterface(interfaceName.Key))
                 {
                     clients.Add(interfaceName.Value(args.Service));
+                    break;
                 }
             }
 

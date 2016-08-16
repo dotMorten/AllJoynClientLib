@@ -1,5 +1,6 @@
 ﻿using AllJoynClientLib.Devices;
 using System.Threading.Tasks;
+using System;
 
 namespace AllJoynSampleApp.ViewModels
 {
@@ -11,6 +12,18 @@ namespace AllJoynSampleApp.ViewModels
         }
 
         protected override async Task Initialize()
+        {
+            await LoadLampStateAsync();
+            Client.LampStateChanged += Client_LampStateChanged;
+        }
+
+        protected internal override void Unload()
+        {
+            Client.LampStateChanged -= Client_LampStateChanged;
+            base.Unload();
+        }
+
+        private async Task LoadLampStateAsync()
         {
             _isOn = await Client.GetOnOffAsync();
             SupportsDimming = await Client.GetIsDimmableAsync();
@@ -34,6 +47,13 @@ namespace AllJoynSampleApp.ViewModels
             OnPropertyChanged(nameof(IsOn), nameof(Brightness), nameof(SupportsDimming), nameof(Hue), nameof(Saturation), nameof(SupportsColor),
                  nameof(Temperature), nameof(MinTemperature), nameof(MaxTemperature), nameof(SupportsTemperature));
         }
+
+
+        private void Client_LampStateChanged(object sender, System.EventArgs e)
+        {
+            var _ = LoadLampStateAsync();
+        }
+
         public bool SupportsDimming { get; private set; } = false;
         public bool SupportsColor { get; private set; } = false;
         public bool SupportsTemperature { get; private set; } = false;

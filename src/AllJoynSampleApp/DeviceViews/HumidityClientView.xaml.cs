@@ -29,6 +29,12 @@ namespace AllJoynSampleApp.DeviceViews
             VM = new ViewModels.CurrentHumidityVM(e.Parameter as AllJoynClientLib.Devices.SmartSpaces.CurrentHumidityClient);
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            VM.Unload();
+            base.OnNavigatingFrom(e);
+        }
+
         public ViewModels.CurrentHumidityVM VM { get; private set; }
     }
 }

@@ -39,6 +39,10 @@ namespace AllJoynSampleApp.ViewModels
             return Task.FromResult<object>(null);
         }
 
+        protected internal virtual void Unload()
+        {
+        }
+
         public bool IsInitialized { get; private set; }
         
         public T Client { get { return _client; } }

@@ -28,6 +28,13 @@ namespace AllJoynSampleApp.DeviceViews
             base.OnNavigatedTo(e);
             VM = new ViewModels.PhilipsHueBridgeVM(e.Parameter as DevicePlugins.PhilipsHueDSB);
         }
+
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            VM.Unload();
+            base.OnNavigatingFrom(e);
+        }
+
         public ViewModels.PhilipsHueBridgeVM VM { get; private set; }
     }
 }
