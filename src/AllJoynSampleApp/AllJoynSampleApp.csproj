@@ -110,6 +110,7 @@
     </Compile>
     <Compile Include="Controls\ColorRangePicker.cs" />
     <Compile Include="Controls\ColorTemperaturePicker.cs" />
+    <Compile Include="Controls\TemplatePickerContentControl.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\NullToCollapsedConverter.cs" />
     <Compile Include="Converters\TimeSpanConverter.cs" />
