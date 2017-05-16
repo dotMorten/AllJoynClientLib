@@ -41,5 +41,10 @@
                                />
 
         </Grid>
+        <StackPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" x:Name="SurfaceDialTip" Visibility="Collapsed" Margin="20" >
+            <Image Source="ms-appx:///Assets/Surface-Dial.png" Width="64" />
+            <TextBlock Text="Use your Surface Dial to control this light" MaxWidth="90" TextWrapping="Wrap" TextAlignment="Center" FontSize="9" />
+
+        </StackPanel>
     </Grid>
 </Page>

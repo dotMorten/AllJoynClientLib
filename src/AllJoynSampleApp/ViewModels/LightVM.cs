@@ -6,7 +6,7 @@ namespace AllJoynSampleApp.ViewModels
 {
     public class LightVM : DeviceVMBase<LightClient>
     {
-
+        TaskCompletionSource<object> tcs = new TaskCompletionSource<object>();
         public LightVM(LightClient lightClient) : base(lightClient)
         {
         }
@@ -15,6 +15,8 @@ namespace AllJoynSampleApp.ViewModels
         {
             await LoadLampStateAsync();
             Client.LampStateChanged += Client_LampStateChanged;
+
+            tcs.TrySetResult(null);
         }
 
         protected internal override void Unload()
@@ -47,6 +49,8 @@ namespace AllJoynSampleApp.ViewModels
             OnPropertyChanged(nameof(IsOn), nameof(Brightness), nameof(SupportsDimming), nameof(Hue), nameof(Saturation), nameof(SupportsColor),
                  nameof(Temperature), nameof(MinTemperature), nameof(MaxTemperature), nameof(SupportsTemperature));
         }
+
+        public Task InitializeTask => tcs.Task;
 
 
         private void Client_LampStateChanged(object sender, System.EventArgs e)
