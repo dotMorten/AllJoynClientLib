@@ -22,20 +22,28 @@ namespace AllJoynSampleApp.DeviceViews
 {
     public sealed partial class LightClientView : Page
     {
+        private bool isLoaded;
+        private RadialController myController;
+        private bool supportsHaptics;
+
         public LightClientView()
         {
             this.InitializeComponent();
         }
+
+        public ViewModels.LightVM VM { get; private set; }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            isLoaded = true;
             base.OnNavigatedTo(e);
             VM = new ViewModels.LightVM(e.Parameter as AllJoynClientLib.Devices.LightClient);
-
             InitializeRadialController();
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
+            isLoaded = false;
             VM.Unload();
             if(myController != null)
             {
@@ -45,10 +53,6 @@ namespace AllJoynSampleApp.DeviceViews
             }
             base.OnNavigatingFrom(e);
         }
-
-
-        private RadialController myController;
-        private bool supportsHaptics;
 
         private async void InitializeRadialController()
         {
@@ -62,6 +66,8 @@ namespace AllJoynSampleApp.DeviceViews
             myController.UseAutomaticHapticFeedback = false;
 
             await VM.InitializeTask;
+            if(!isLoaded)
+                return;
 
             RandomAccessStreamReference icon = RandomAccessStreamReference.CreateFromUri(new Uri("ms-appx:///Assets/StoreLogo.png"));
 
@@ -134,8 +140,6 @@ namespace AllJoynSampleApp.DeviceViews
         {
             VM.IsOn = !VM.IsOn;
         }
-
-        public ViewModels.LightVM VM { get; private set; }
 
         private void ColorPicker_ColorChanging(object sender, Controls.ColorPicker.HS e)
         {
