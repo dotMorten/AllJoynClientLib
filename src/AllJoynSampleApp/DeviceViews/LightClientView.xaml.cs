@@ -47,7 +47,8 @@ namespace AllJoynSampleApp.DeviceViews
         }
 
 
-        RadialController myController;
+        private RadialController myController;
+        private bool supportsHaptics;
 
         private async void InitializeRadialController()
         {
@@ -79,8 +80,9 @@ namespace AllJoynSampleApp.DeviceViews
 
             var config = RadialControllerConfiguration.GetForCurrentView();
             config.SetDefaultMenuItems(new RadialControllerSystemMenuItemKind[] { });
-     
 
+
+            supportsHaptics = ApiInformation.IsTypePresent("Windows.Devices.Haptics.SimpleHapticsController");
             myController.ButtonClicked += MyController_ButtonClicked;
             myController.RotationChanged += MyController_RotationChanged;
 
@@ -90,14 +92,41 @@ namespace AllJoynSampleApp.DeviceViews
         private void MyController_RotationChanged(RadialController sender, RadialControllerRotationChangedEventArgs args)
         {
             if (sender.Menu.GetSelectedMenuItem().DisplayText == "Brightness")
+            {
                 VM.Brightness = Math.Max(0, Math.Min(100, VM.Brightness + args.RotationDeltaInDegrees));
+                if(VM.Brightness == 100 && args.RotationDeltaInDegrees > 0 ||
+                    VM.Brightness == 0 && args.RotationDeltaInDegrees < 0)
+                {
+                    if (supportsHaptics)
+                    {
+                        args.SimpleHapticsController.SendHapticFeedback(args.SimpleHapticsController.SupportedFeedback.First());
+                    }
+                }
+            }
             else if (sender.Menu.GetSelectedMenuItem().DisplayText == "Saturation")
+            {
                 VM.Saturation = Math.Max(0, Math.Min(1, VM.Saturation + args.RotationDeltaInDegrees / 100));
+                if (VM.Saturation == 1 && args.RotationDeltaInDegrees > 0 ||
+                    VM.Saturation == 0 && args.RotationDeltaInDegrees < 0)
+                {
+                    if (supportsHaptics)
+                    {
+                        args.SimpleHapticsController.SendHapticFeedback(args.SimpleHapticsController.SupportedFeedback.First());
+                    }
+                }
+            }
             else if (sender.Menu.GetSelectedMenuItem().DisplayText == "Hue")
             {
-                var hue = (VM.Hue + args.RotationDeltaInDegrees) % 360;
-                if (hue < 0) hue = 360 - hue;
+                var hue = Math.Floor((VM.Hue + args.RotationDeltaInDegrees)) % 360;
+                if (hue < 0) hue = 360 + hue;
                 VM.Hue = hue;
+                if (hue % 60 == 0)
+                {
+                    if (supportsHaptics)
+                    {
+                        args.SimpleHapticsController.SendHapticFeedback(args.SimpleHapticsController.SupportedFeedback.First());
+                    }
+                }
             }
         }
 
