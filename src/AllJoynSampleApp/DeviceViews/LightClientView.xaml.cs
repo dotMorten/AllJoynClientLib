@@ -58,7 +58,10 @@ namespace AllJoynSampleApp.DeviceViews
         {
             if (!ApiInformation.IsTypePresent(typeof(RadialController).FullName))
                 return;
-            myController = RadialController.CreateForCurrentView();
+
+            if (RadialController.IsSupported())
+                myController = RadialController.CreateForCurrentView();
+
             if (myController == null)
                 return;
 
